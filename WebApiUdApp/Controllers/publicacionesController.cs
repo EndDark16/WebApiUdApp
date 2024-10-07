@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using WebApiUdApp.Dtos.Request.PublicacionesRequest;
@@ -165,12 +166,17 @@ namespace WebApiUdApp.Controllers
             {
                 // Obtener la identidad del usuario autenticado
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
+                foreach (var claim in identity.Claims)
+                {
+                    Debug.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
+                }
+
                 if (identity == null)
                 {
                     return Unauthorized(new { message = "Usuario no autenticado" });
                 }
 
-                // Obtener el IdUsuario del claim "sub" (subject)
+                // Acceder al claim "sub"
                 var userIdClaim = identity.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sub);
                 if (userIdClaim == null)
                 {
