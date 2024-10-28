@@ -1,18 +1,32 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
-using WebApiUdApp.Services;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Diagnostics;
+using System.Text;
+using WebApiUdApp.Repositories;
+using WebApiUdApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<PublicacionesRepositorio>();
-builder.Services.AddTransient<UsuarioServicio>();
+builder.Services.AddScoped<UserRepositorio>();
+builder.Services.AddScoped<PublicacionesRepositorio>(); 
+builder.Services.AddScoped<PublicacionesService>();      // Nuevo registro de PublicacionesService
+builder.Services.AddScoped<UsuarioServicio>();           // Asegúrate de que cualquier otro servicio también esté registrado
+
 builder.Services.AddControllers();
 
-// Configure Swagger/OpenAPI
+// Configuración de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("https://localhost:44322")  // Ajusta esto según el origen de tu frontend
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+// Configuración de Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,30 +39,28 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
     Debug.WriteLine("Key en Configuración JWT: " + jwtSettings["Key"]);
     var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
 
-    options.RequireHttpsMetadata = false; // Ajusta esto según tu entorno (producción/ desarrollo)
+    options.RequireHttpsMetadata = false;
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false, // Deshabilita la validación del emisor
-        ValidateAudience = false, // Deshabilita la validación de la audiencia
-        IssuerSigningKey = signingKey, // La clave de firma que se usó para crear el token
-        ValidateLifetime = true, // Valida que el token no esté caducado
-        ClockSkew = TimeSpan.Zero // El tiempo de tolerancia para la caducidad del token
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        IssuerSigningKey = signingKey,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
     };
-
 });
 
-// Configurar Swagger para usar el token JWT en la autenticación
+// Configuración de Swagger para JWT
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "WebApiUdApp1",
         Version = "v1",
-        Description = "Esta API proporciona acceso a diversas funcionalidades para la pagina web de UdApp." // Descripción añadida
+        Description = "Esta API proporciona acceso a diversas funcionalidades para la pagina web de UdApp."
     });
 
-    // Configuración para JWT
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header usando el esquema Bearer. \r\n\r\n " +
@@ -89,6 +101,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 

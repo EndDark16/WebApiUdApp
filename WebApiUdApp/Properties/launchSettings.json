@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:1158",
-      "sslPort": 44380
+      "applicationUrl": "http://localhost:1158", // Puerto específico para IIS Express
+      "sslPort": 44380 // Puerto SSL para IIS Express
     }
   },
   "profiles": {
@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5222",
+      "applicationUrl": "http://localhost:3000", // Puerto HTTP configurado a 3000
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -24,7 +24,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7241;http://localhost:5222",
+      "applicationUrl": "https://localhost:44321;http://localhost:3000", // Puerto HTTPS en 44321, HTTP en 3000
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

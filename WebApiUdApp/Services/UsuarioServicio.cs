@@ -34,7 +34,7 @@ namespace WebApiUdApp.Services
         {
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, idUsuario.ToString()), // ID del usuario
+            new Claim(JwtRegisteredClaimNames.Sid, idUsuario.ToString()), // ID del usuario
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // Identificador único
             };
 
