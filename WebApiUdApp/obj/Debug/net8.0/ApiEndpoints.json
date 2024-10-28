@@ -1,25 +1,15 @@
 [
   {
     "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
-    "Method": "AdministrarReportes",
-    "RelativePath": "api/Publicaciones/administrar-reportes",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
-    "Method": "EliminarPublicacion",
-    "RelativePath": "api/Publicaciones/eliminar-publicacion",
-    "HttpMethod": "POST",
+    "Method": "ActualizarPublicacion",
+    "RelativePath": "api/Publicaciones/actualizar-publicacion",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "WebApiUdApp.Dtos.Request.PublicacionesRequest.EliminarPublicacionRequest",
+        "Type": "WebApiUdApp.Dtos.Request.PublicacionesRequest.ActualizarPublicacionRequest",
         "IsRequired": true
       }
     ],
@@ -27,16 +17,16 @@
   },
   {
     "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
-    "Method": "EliminarReporte",
-    "RelativePath": "api/Publicaciones/eliminar-reporte",
-    "HttpMethod": "POST",
+    "Method": "EliminarPublicacion",
+    "RelativePath": "api/Publicaciones/eliminar-publicacion",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "WebApiUdApp.Dtos.Request.PublicacionesRequest.EliminarReporteRequest",
-        "IsRequired": true
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -69,6 +59,22 @@
   },
   {
     "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
+    "Method": "ObtenerPublicacion",
+    "RelativePath": "api/Publicaciones/publicacion-por-id",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
     "Method": "Reportar",
     "RelativePath": "api/Publicaciones/reportar",
     "HttpMethod": "POST",
@@ -81,16 +87,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
-    "Method": "ReportePublicacionesPDF",
-    "RelativePath": "api/Publicaciones/reporte-publicaciones-pdf",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

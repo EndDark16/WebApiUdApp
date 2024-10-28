@@ -1,22 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+using WebApiUdApp.Dtos;
 using WebApiUdApp.Dtos.Request.PublicacionesRequest;
 using WebApiUdApp.Dtos.Response.PublicacionesResponse;
 using WebApiUdApp.Services;
 
 namespace WebApiUdApp.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PublicacionesController : ControllerBase
     {
-        private readonly PublicacionesRepositorio _publicacionesRepositorio;
+        private readonly PublicacionesService _publicacionesService;
 
-        public PublicacionesController(PublicacionesRepositorio publicacionesRepositorio)
+        public PublicacionesController(PublicacionesService publicacionesService)
         {
-            _publicacionesRepositorio = publicacionesRepositorio;
+            _publicacionesService = publicacionesService;
         }
 
         [HttpPost("reportar")]
@@ -24,20 +23,12 @@ namespace WebApiUdApp.Controllers
         {
             try
             {
-                _publicacionesRepositorio.ReportarPublicacion(request.IdPublicacion, DateTime.Now, request.Motivo, request.IdUusuarioReportador);
-                return Ok(new ReportarPublicacionResponse
-                {
-                    Success = true,
-                    Message = "Publicación reportada con éxito"
-                });
+                _publicacionesService.ReportarPublicacion(request);
+                return Ok(new ReportarPublicacionResponse { Success = true, Message = "Publicación reportada con éxito" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ReportarPublicacionResponse
-                {
-                    Success = false,
-                    Message = $"Error al reportar la publicación: {ex.Message}"
-                });
+                return StatusCode(500, new ReportarPublicacionResponse { Success = false, Message = $"Error al reportar la publicación: {ex.Message}" });
             }
         }
 
@@ -46,152 +37,92 @@ namespace WebApiUdApp.Controllers
         {
             try
             {
-                _publicacionesRepositorio.InsertarPublicacion(request.Titulo, DateTime.Now, request.IdUsuario);
-                return Ok(new HacerPublicacionResponse
-                {
-                    Success = true,
-                    Message = "Publicación realizada con éxito"
-                });
+                _publicacionesService.HacerPublicacion(request);
+                return Ok(new HacerPublicacionResponse { Success = true, Message = "Publicación realizada con éxito" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new HacerPublicacionResponse
+                return StatusCode(500, new HacerPublicacionResponse { Success = false, Message = $"Error al realizar la publicación: {ex.Message}" });
+            }
+        }
+        [HttpGet("publicacion-por-id")]
+        public IActionResult ObtenerPublicacion(int id)
+        {
+            try
+            {
+                var publicacion = _publicacionesService.ObtenerPublicacionPorId(id);
+                if (publicacion == null)
                 {
-                    Success = false,
-                    Message = $"Error al realizar la publicación: {ex.Message}"
-                });
+                    return NotFound("Publicación no encontrada");
+                }
+                return Ok(publicacion);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno: " + ex.Message);
             }
         }
 
+        [HttpPut("actualizar-publicacion")]
+        public IActionResult ActualizarPublicacion(ActualizarPublicacionRequest request)
+        {
+            try
+            {
+                _publicacionesService.ActualizarPublicacion(request);
+                return Ok(new ActualizarPublicacionResponse { Success = true, Message = "Publicación actualizada con éxito" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ActualizarPublicacionResponse { Success = false, Message = $"Error al realizar la publicación: {ex.Message}" });
+            }
+        }
+
+        [HttpDelete("eliminar-publicacion")]
+        public IActionResult EliminarPublicacion(int id)
+        {
+            try
+            {
+                bool eliminado = _publicacionesService.EliminarPublicacion(id);
+                if (!eliminado)
+                {
+                    return StatusCode(500, "Error al eliminar la publicación");
+                }
+                return Ok("Publicación eliminada con éxito");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno: " + ex.Message);
+            }
+        }
         [HttpPost("toggle-like")]
         public IActionResult ToggleLike(ToggleLikeRequest request)
         {
             try
             {
-                if (request.LikeStatus)
-                {
-                    _publicacionesRepositorio.GuardarLike(request.IdUsuario, request.IdPublicacion);
-                }
-                else
-                {
-                    _publicacionesRepositorio.EliminarLike(request.IdUsuario, request.IdPublicacion);
-                }
-
-                return Ok(new ToggleLikeResponse
-                {
-                    Success = true,
-                    Message = "Like actualizado con éxito"
-                });
+                _publicacionesService.ToggleLike(request);
+                return Ok(new ToggleLikeResponse { Success = true, Message = "Like actualizado con éxito" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ToggleLikeResponse
-                {
-                    Success = false,
-                    Message = $"Error al actualizar el like: {ex.Message}"
-                });
+                return StatusCode(500, new ToggleLikeResponse { Success = false, Message = $"Error al actualizar el like: {ex.Message}" });
             }
-        }
-
-        [HttpPost("eliminar-publicacion")]
-        public IActionResult EliminarPublicacion(EliminarPublicacionRequest request)
-        {
-            try
-            {
-                _publicacionesRepositorio.EliminarPublicacion(request.IdPublicacion);
-                return Ok(new EliminarPublicacionResponse
-                {
-                    Success = true,
-                    Message = "Publicación eliminada con éxito"
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new EliminarPublicacionResponse
-                {
-                    Success = false,
-                    Message = $"Error al eliminar la publicación: {ex.Message}"
-                });
-            }
-        }
-
-        [HttpPost("eliminar-reporte")]
-        public IActionResult EliminarReporte(EliminarReporteRequest request)
-        {
-            try
-            {
-                _publicacionesRepositorio.EliminarReporte(request.IdPublicacion);
-                return Ok(new EliminarReporteResponse
-                {
-                    Success = true,
-                    Message = "Reporte eliminado con éxito"
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new EliminarReporteResponse
-                {
-                    Success = false,
-                    Message = $"Error al eliminar el reporte: {ex.Message}"
-                });
-            }
-        }
-
-        [HttpGet("administrar-reportes")]
-        public IActionResult AdministrarReportes()
-        {
-            var publicacionesReportadas = _publicacionesRepositorio.ObtenerPublicacionesReportadas();
-            return Ok(new AdministrarReportesResponse
-            {
-                PublicacionesReportadas = publicacionesReportadas
-            });
-        }
-
-        [HttpGet("reporte-publicaciones-pdf")]
-        public IActionResult ReportePublicacionesPDF()
-        {
-            var listPosts = _publicacionesRepositorio.ObtenerPublicacionesOrdenadasPorLikes();
-            return Ok(new ReportePublicacionResponse
-            {
-                Publicaciones = listPosts
-            });
         }
 
         [HttpGet("pagina-principal")]
-        [Authorize] // Asegura que solo usuarios autenticados puedan acceder
+        [Authorize]
         public IActionResult PaginaPrincipal()
         {
             try
             {
-                // Obtener la identidad del usuario autenticado
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                if (identity == null)
-                {
-                    return Unauthorized(new { message = "Usuario no autenticado" });
-                }
-
-                // Obtener el IdUsuario del claim "sub" (subject)
-                var userIdClaim = identity.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sub);
-                if (userIdClaim == null)
-                {
-                    return Unauthorized(new { message = "El token no contiene un IdUsuario válido" });
-                }
-
-                int userId = int.Parse(userIdClaim.Value);
-
-                // Obtener las publicaciones recientes del usuario
-                var publicaciones = _publicacionesRepositorio.PublicacionesRecientes(userId);
-                if (publicaciones == null || !publicaciones.Any())
+                var publicaciones = _publicacionesService.ObtenerPublicacionesRecientes(User);
+                if (!publicaciones.Any())
                 {
                     return NotFound(new { message = "No se encontraron publicaciones para este usuario." });
                 }
-
-                // Devolver las publicaciones con un código de estado 200 OK
                 return Ok(publicaciones);
             }
             catch (Exception ex)
             {
-                // Manejar cualquier error inesperado
                 return StatusCode(500, new { message = "Error interno del servidor", details = ex.Message });
             }
         }

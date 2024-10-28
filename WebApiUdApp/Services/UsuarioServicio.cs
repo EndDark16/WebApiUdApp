@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Diagnostics;
 
 namespace WebApiUdApp.Services
 {
@@ -33,19 +34,20 @@ namespace WebApiUdApp.Services
         {
             var claims = new[]
             {
-        new Claim(JwtRegisteredClaimNames.Sub, idUsuario.ToString()), // Aquí debería estar el ID del usuario
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // Identificador único
-    };
+            new Claim(JwtRegisteredClaimNames.Sid, idUsuario.ToString()), // ID del usuario
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // Identificador único
+            };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ObtenerClaveJwt()));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: null,       // Puede ser el dominio de tu aplicación
-                audience: null,      // Puede ser el dominio de tu aplicación
+                issuer: null, // O el emisor que estés utilizando
+                audience: null, // O la audiencia que estés utilizando
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),  // El token expira en 30 minutos
-                signingCredentials: creds);
+                expires: DateTime.Now.AddMinutes(30), // Expiración del token
+                signingCredentials: creds
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -138,7 +140,7 @@ namespace WebApiUdApp.Services
                 {
                     // Simular envío de correo al registrar
                     EnviarCorreo correo = new EnviarCorreo();
-                    correo.CorreoInicioSesion(userNew.Email, userNew.Nombre);
+                    _ = correo.CorreoInicioSesion(userNew.Email, userNew.Nombre);
 
                     return new RegisterResponse
                     {

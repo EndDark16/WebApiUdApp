@@ -4,8 +4,9 @@
     {
         public int IdPublicacion { get; set; }
         public string Titulo { get; set; } = string.Empty;
-        public string Contenido { get; set; } = string.Empty;
+        public string? Contenido { get; set; } = string.Empty;
         public DateTime FechaPublicacion { get; set; }
+        public int IdUsuarioPublicador { get; set; }
         public string NombreUsuario { get; set; } = string.Empty;
         public int NumeroComentarios { get; set; }
         public int NumeroLikes { get; set; }

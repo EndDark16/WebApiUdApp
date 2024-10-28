@@ -16,12 +16,6 @@ C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Azure
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Konscious.Security.Cryptography.Argon2.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Konscious.Security.Cryptography.Blake2.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\System.Web.Mvc.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\System.Web.Razor.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\System.Web.Helpers.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\System.Web.WebPages.Deployment.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\System.Web.WebPages.Razor.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\System.Web.WebPages.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
@@ -35,8 +29,6 @@ C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Micro
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll
-C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Rotativa.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Rotativa.AspNetCore.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -78,3 +70,4 @@ C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\obj\Debug\net8.0\refin
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\obj\Debug\net8.0\WebApiUdApp.pdb
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\obj\Debug\net8.0\WebApiUdApp.genruntimeconfig.cache
 C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\obj\Debug\net8.0\ref\WebApiUdApp.dll
+C:\Users\USUARIO\Documents\GitHub\WebApiUdApp\WebApiUdApp\obj\Debug\net8.0\WebApiUdApp.sourcelink.json

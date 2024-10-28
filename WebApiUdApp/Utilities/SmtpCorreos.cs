@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -6,7 +5,7 @@ namespace WebApiUdApp.Utilities
 {
     public class SmtpCorreos
     {
-        public void EnviarCorreoConEstilo(string destinatario, string asunto, String bodyHtml)
+        public async Task EnviarCorreoConEstilo(string destinatario, string asunto, String bodyHtml)
         {
             try
             {
@@ -27,7 +26,7 @@ namespace WebApiUdApp.Utilities
                 mensaje.IsBodyHtml = true;
                 mensaje.Body = bodyHtml;
                 // Enviar el correo
-                clienteSmtp.Send(mensaje);
+                await clienteSmtp.SendMailAsync(mensaje);
             }
             catch (Exception ex)
             {

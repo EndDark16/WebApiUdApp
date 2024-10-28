@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -14,12 +13,12 @@ namespace WebApiUdApp.Utilities
                 SmtpClient clienteSmtp = new SmtpClient("smtp.gmail.com "); // Reemplaza "smtp.servidor.com" por el servidor SMTP que corresponda
                 clienteSmtp.Port = 587; // Puerto SMTP seguro (SSL/TLS)
                 clienteSmtp.UseDefaultCredentials = false;
-                clienteSmtp.Credentials = new NetworkCredential("tu_correo@dominio.com", "tu_contraseña");
+                clienteSmtp.Credentials = new NetworkCredential("udappx@gmail.com", "mnsrsyclbpiodmaj");
                 clienteSmtp.EnableSsl = true;
 
                 // Crear el mensaje de correo con HTML y estilos CSS en línea
                 MailMessage mensaje = new MailMessage();
-                mensaje.From = new MailAddress("tu_correo@dominio.com"); // Dirección de correo del remitente
+                mensaje.From = new MailAddress("udappx@gmail.com"); // Dirección de correo del remitente
                 mensaje.To.Add(destinatario); // Agregar el destinatario
                 mensaje.Subject = asunto; // Asunto del correo
 
