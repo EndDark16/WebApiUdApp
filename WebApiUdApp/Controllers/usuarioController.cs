@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WebApiUdApp.Dtos;
 using WebApiUdApp.Dtos.Request.UserRequest;
 using WebApiUdApp.Dtos.Response.UserResponse;
@@ -16,7 +18,48 @@ namespace WebApiUdApp.Controllers
         {
             _usuarioServicio = usuarioServicio;
         }
+        // POST: api/Usuario/Login
+        [HttpPost("Login")]
+        public IActionResult Login([FromBody] LoginRequest loginDto)
+        {
+            try
+            {
+                var respuesta = _usuarioServicio.IniciarSesion(loginDto);
 
+                if (!respuesta.Exito)
+                {
+                    return Unauthorized(new LoginResponse
+                    {
+                        Exito = false,
+                        Mensaje = "Credenciales inválidas."
+                    });
+                }
+
+                // Generar token JWT
+                string token = _usuarioServicio.GenerarToken(respuesta.Usuario.IdUsuario);
+
+                return Ok(new
+                {
+                    Exito = true,
+                    Mensaje = "Inicio de sesión exitoso",
+                    Token = token,
+                    Usuario = new
+                    {
+                        Id = respuesta.Usuario.IdUsuario,
+                        Email = respuesta.Usuario.Email,
+                        Rol = respuesta.Usuario.IdRol
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Exito = false,
+                    Mensaje = "Error en el servidor: " + ex.Message
+                });
+            }
+        }
         // POST: api/Usuario/Registro
         [HttpPost("Registro")]
         public IActionResult Registro([FromBody] RegisterRequest registroDto)
@@ -61,48 +104,48 @@ namespace WebApiUdApp.Controllers
                 });
             }
         }
-
-        // POST: api/Usuario/Login
-        [HttpPost("Login")]
-        public IActionResult Login([FromBody] LoginRequest loginDto)
+        [HttpGet("Obtener-usuario-token")]
+        [Authorize]
+        public IActionResult GetUsuario([FromHeader] string Authorization)
         {
-            try
+            string token = Authorization.Replace("Bearer ", "");
+            var usuario = _usuarioServicio.ObtenerUsuario(token);
+            if (usuario == null) return NotFound("Usuario no encontrado.");
+            return Ok(usuario);
+        }
+
+        [HttpPut("Actualizar-usuario")]
+        [Authorize]
+        public IActionResult UpdateUsuario([FromHeader] string Authorization, [FromBody] UserDto usuarioDto)
+        {
+            string token = Authorization.Replace("Bearer ", "");
+            bool actualizado = _usuarioServicio.ActualizarUsuario(token, usuarioDto);
+            if (!actualizado) return BadRequest("Error al actualizar el usuario.");
+            return NoContent();
+        }
+
+        [HttpDelete("Eliminar-usuario")]
+        [Authorize]
+        public IActionResult DeleteUsuario([FromHeader] string Authorization)
+        {
+            string token = Authorization.Replace("Bearer ", "");
+            bool eliminado = _usuarioServicio.EliminarUsuario(token);
+            if (!eliminado) return BadRequest("Error al eliminar el usuario.");
+            return NoContent();
+        }
+
+        // Método auxiliar para extraer el idUsuario desde el token JWT
+        private int ObtenerIdUsuarioDesdeToken()
+        {
+            var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+            string sid = claimsIdentity?.FindFirst(ClaimTypes.Sid)?.Value;
+
+            if (string.IsNullOrEmpty(sid))
             {
-                var respuesta = _usuarioServicio.IniciarSesion(loginDto);
-
-                if (!respuesta.Exito)
-                {
-                    return Unauthorized(new LoginResponse
-                    {
-                        Exito = false,
-                        Mensaje = "Credenciales inválidas."
-                    });
-                }
-
-                // Generar token JWT
-                string token = _usuarioServicio.GenerarToken(respuesta.Usuario.Id);
-
-                return Ok(new
-                {
-                    Exito = true,
-                    Mensaje = "Inicio de sesión exitoso",
-                    Token = token,
-                    Usuario = new
-                    {
-                        Id = respuesta.Usuario.Id,
-                        Email = respuesta.Usuario.Email,
-                        Rol = respuesta.Usuario.idRol
-                    }
-                });
+                throw new UnauthorizedAccessException("Token inválido o expirado.");
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    Exito = false,
-                    Mensaje = "Error en el servidor: " + ex.Message
-                });
-            }
+
+            return int.Parse(sid); // Convertimos el claim 'sid' en el idUsuario
         }
     }
 }

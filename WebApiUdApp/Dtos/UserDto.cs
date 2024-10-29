@@ -9,8 +9,10 @@
         public string Direccion { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Contrasena { get; set; } = string.Empty;
-        public int Id { get; set; }
-        public int idRol { get; set; }
+        public int IdUsuario { get; set; }
+        public int? IdRol { get; set; }
+        public Boolean? EstadoSuspension { get; set; }
+
     }
 }
 
