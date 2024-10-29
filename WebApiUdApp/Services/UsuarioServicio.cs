@@ -18,10 +18,12 @@ namespace WebApiUdApp.Services
     {
 
         private readonly IConfiguration _configuration;
+        private readonly UserRepositorio _userRepo;
 
-        public UsuarioServicio(IConfiguration configuration)
+        public UsuarioServicio(UserRepositorio userRepo, IConfiguration configuration)
         {
             _configuration = configuration;
+            _userRepo = new UserRepositorio(); // Instancia del repositorio para CRUD
         }
 
         public string ObtenerClaveJwt()
@@ -50,6 +52,42 @@ namespace WebApiUdApp.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        // Método para obtener un usuario por su id (extraído del token)
+        public UserDto? ObtenerUsuario(string token)
+        {
+            int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+            return _userRepo.GetUsuarioById(idUsuario);
+        }
+
+        // Método para actualizar un usuario por su id (extraído del token)
+        public bool ActualizarUsuario(string token, UserDto usuarioDto)
+        {
+            int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+            return _userRepo.UpdateUsuario(idUsuario, usuarioDto);
+        }
+
+        // Método para eliminar un usuario por su id (extraído del token)
+        public bool EliminarUsuario(string token)
+        {
+            int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+            return _userRepo.DeleteUsuario(idUsuario);
+        }
+
+        // Método auxiliar para extraer el idUsuario desde el token JWT
+        private int ObtenerIdUsuarioDesdeToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+            string sid = jsonToken?.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Sid)?.Value;
+
+            if (string.IsNullOrEmpty(sid))
+            {
+                throw new UnauthorizedAccessException("Token inválido.");
+            }
+
+            return int.Parse(sid);
         }
 
         // Verifica si hay valores nulos o vacíos
@@ -189,8 +227,8 @@ namespace WebApiUdApp.Services
             {
                 UserDto usuario = new UserDto
                 {
-                    Id = userRepo.ObtenerIdUsuario(loginRequest.Email, contrasenaEncriptada),
-                    idRol = userRepo.ObtenerIdRolUsuario(loginRequest.Email, contrasenaEncriptada),
+                    IdUsuario = userRepo.ObtenerIdUsuario(loginRequest.Email, contrasenaEncriptada),
+                    IdRol = userRepo.ObtenerIdRolUsuario(loginRequest.Email, contrasenaEncriptada),
                     Email = loginRequest.Email
                 };
 
