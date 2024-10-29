@@ -107,6 +107,43 @@
   },
   {
     "ContainingType": "WebApiUdApp.Controllers.UsuarioController",
+    "Method": "UpdateUsuario",
+    "RelativePath": "api/Usuario/Actualizar-usuario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "usuarioDto",
+        "Type": "WebApiUdApp.Dtos.UserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.UsuarioController",
+    "Method": "DeleteUsuario",
+    "RelativePath": "api/Usuario/Eliminar-usuario",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.UsuarioController",
     "Method": "Login",
     "RelativePath": "api/Usuario/Login",
     "HttpMethod": "POST",
@@ -117,6 +154,22 @@
         "Name": "loginDto",
         "Type": "WebApiUdApp.Dtos.Request.UserRequest.LoginRequest",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.UsuarioController",
+    "Method": "GetUsuario",
+    "RelativePath": "api/Usuario/Obtener-usuario-token",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
