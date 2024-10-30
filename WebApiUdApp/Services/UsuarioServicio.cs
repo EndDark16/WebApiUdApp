@@ -62,11 +62,33 @@ namespace WebApiUdApp.Services
         }
 
         // Método para actualizar un usuario por su id (extraído del token)
-        public bool ActualizarUsuario(string token, UserDto usuarioDto)
+        public ActualizarUsuarioResponse ActualizarUsuario(string token, UserDto usuarioDto)
         {
-            int idUsuario = ObtenerIdUsuarioDesdeToken(token);
-            return _userRepo.UpdateUsuario(idUsuario, usuarioDto);
+            int idUsuario = ObtenerIdUsuarioDesdeToken(token); // Extraemos el idUsuario desde el token
+
+            // Intentamos actualizar el usuario en el repositorio
+            bool actualizado = _userRepo.UpdateUsuario(idUsuario, usuarioDto);
+
+            if (!actualizado)
+            {
+                return new ActualizarUsuarioResponse
+                {
+                    Exito = false,
+                    Mensaje = "Error al actualizar el usuario."
+                };
+            }
+
+            // Obtener los datos del usuario actualizado para incluirlos en la respuesta
+            var usuarioActualizado = _userRepo.GetUsuarioById(idUsuario);
+
+            return new ActualizarUsuarioResponse
+            {
+                Exito = true,
+                Mensaje = "Usuario actualizado exitosamente.",
+                Usuario = usuarioActualizado
+            };
         }
+
 
         // Método para eliminar un usuario por su id (extraído del token)
         public bool EliminarUsuario(string token)
