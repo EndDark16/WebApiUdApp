@@ -118,11 +118,37 @@ namespace WebApiUdApp.Controllers
         [Authorize]
         public IActionResult UpdateUsuario([FromHeader] string Authorization, [FromBody] UserDto usuarioDto)
         {
-            string token = Authorization.Replace("Bearer ", "");
-            bool actualizado = _usuarioServicio.ActualizarUsuario(token, usuarioDto);
-            if (!actualizado) return BadRequest("Error al actualizar el usuario.");
-            return NoContent();
+            try
+            {
+                string token = Authorization.Replace("Bearer ", "");
+                var resultado = _usuarioServicio.ActualizarUsuario(token, usuarioDto);
+
+                if (!resultado.Exito)
+                {
+                    return BadRequest(new ActualizarUsuarioResponse
+                    {
+                        Exito = false,
+                        Mensaje = resultado.Mensaje
+                    });
+                }
+
+                return Ok(new ActualizarUsuarioResponse
+                {
+                    Exito = true,
+                    Mensaje = resultado.Mensaje,
+                    Usuario = resultado.Usuario
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ActualizarUsuarioResponse
+                {
+                    Exito = false,
+                    Mensaje = "Error en el servidor: " + ex.Message
+                });
+            }
         }
+
 
         [HttpDelete("Eliminar-usuario")]
         [Authorize]
@@ -131,6 +157,7 @@ namespace WebApiUdApp.Controllers
             string token = Authorization.Replace("Bearer ", "");
             bool eliminado = _usuarioServicio.EliminarUsuario(token);
             if (!eliminado) return BadRequest("Error al eliminar el usuario.");
+
             return NoContent();
         }
 
