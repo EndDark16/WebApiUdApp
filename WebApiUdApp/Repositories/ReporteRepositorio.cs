@@ -8,23 +8,23 @@ namespace WebApiUdApp.Repositories
 {
     public class ReporteRepositorio
     {
-        private DatabaseConnection dbConnection;
+        private DatabaseConnection _dbConnection;
 
         public ReporteRepositorio()
         {
-            dbConnection = new DatabaseConnection();
+            _dbConnection = new DatabaseConnection();
         }
         public List<ReporteDto> ObtenerPublicacionesReportadas()
         {
             try
             {
-                dbConnection.AbrirConexion();
+                _dbConnection.AbrirConexion();
                 string consulta = @"SELECT R.idReporte, R.motivoReporte, R.fechaReporte, R.fk_idUsuarioReportador, R.fk_idPublicacionReportada,
                            U.nombreUsuario + ' ' + U.apellidoUsuario nombreUsuarioReportador
                     FROM REPORTE R
                     INNER JOIN USUARIO U ON R.fk_idUsuarioReportador = U.idUsuario
                     ORDER BY R.fechaReporte DESC";
-                SqlCommand command = new SqlCommand(consulta, dbConnection.Connection);
+                SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
 
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -54,7 +54,33 @@ namespace WebApiUdApp.Repositories
             }
             finally
             {
-                dbConnection.CerrarConexion();
+               _dbConnection.CerrarConexion();
+            }
+        }
+        public string ObtenerCorreoPorId(int idUsuario)
+        {
+            try
+            {
+                _dbConnection.AbrirConexion();
+                string consulta = @"SELECT [email]
+                                  FROM USUARIO WHERE idUsuario = @IdUsuario";
+                SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
+                command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+
+                // Ejecutar la consulta y obtener el resultado
+                object resultado = command.ExecuteScalar();
+
+                // Comprobar si el resultado no es null y devolverlo como string
+                return resultado != null ? resultado.ToString() : null;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores (puedes registrar o lanzar la excepción según tu necesidad)
+                throw new Exception("Error al obtener el correo electrónico", ex);
+            }
+            finally
+            {
+                _dbConnection.CerrarConexion();
             }
         }
     }

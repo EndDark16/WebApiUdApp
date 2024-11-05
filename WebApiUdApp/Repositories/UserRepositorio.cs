@@ -19,12 +19,23 @@ namespace WebApiUdApp.Repositories
         {
             _dbConnection = new DatabaseConnection();
         }
+        
         public UserDto? GetUsuarioById(int idUsuario)
         {
             try
             {
                 _dbConnection.AbrirConexion();
-                string consulta = "SELECT * FROM USUARIO WHERE idUsuario = @IdUsuario";
+                string consulta = @"SELECT [idUsuario]
+                                          ,[cedulaUsuario]
+                                          ,[nombreUsuario]
+                                          ,[apellidoUsuario]
+                                          ,[telefono]
+                                          ,[direccion]
+                                          ,[email]
+                                          ,[contrasena]
+                                          ,[fk_idRol]
+                                          ,[estadoSuspension]
+	                                      FROM USUARIO WHERE idUsuario = @IdUsuario";
                 SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
                 command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 

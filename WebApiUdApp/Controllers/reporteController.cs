@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApiUdApp.Dtos.Request.ReporteRequest;
 using WebApiUdApp.Services;
 
@@ -16,11 +17,13 @@ namespace WebApiUdApp.Controllers
         }
 
         [HttpPost("enviar-reporte")]
-        public async Task<IActionResult> EnviarReporte([FromBody] EnviarReporteRequest request)
+        [Authorize]
+        public async Task<IActionResult> EnviarReporte([FromHeader] string Authorization, [FromBody] EnviarReporteRequest request)
         {
             try
             {
-                await _reporteService.EnviarCorreoReporteAsync(request.Destinatario, request.NombreReporte);
+                string token = Authorization.Replace("Bearer ", "");
+                await _reporteService.EnviarCorreoReporteAsync(token, request.NombreReporte);
                 return Ok(new { message = "Reporte enviado exitosamente." });
             }
             catch (Exception ex)

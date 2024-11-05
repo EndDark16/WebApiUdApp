@@ -152,6 +152,7 @@ namespace WebApiUdApp.Utilities
                                     <th>Fecha del Reporte</th>
                                     <th>ID Publicación Reportada</th>
                                     <th>Usuario que reportó</th>
+                                    <th>Nombre usuario reportador</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -165,6 +166,7 @@ namespace WebApiUdApp.Utilities
                         <td>{reporte.FechaReporte:yyyy-MM-dd}</td>
                         <td>{reporte.IdPublicacionReportada}</td>
                         <td>{reporte.IdUsuarioReportador}</td>
+                        <td>{reporte.NombreUsuarioReportador}</td>
                     </tr>";
             }
 
