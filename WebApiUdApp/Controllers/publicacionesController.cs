@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WebApiUdApp.Dtos;
 using WebApiUdApp.Dtos.Request.PublicacionesRequest;
 using WebApiUdApp.Dtos.Response.PublicacionesResponse;
@@ -19,11 +20,13 @@ namespace WebApiUdApp.Controllers
         }
 
         [HttpPost("reportar")]
-        public IActionResult Reportar(ReportarPublicacionRequest request)
+        [Authorize]
+        public IActionResult Reportar([FromHeader] string Authorization, ReportarPublicacionRequest request)
         {
             try
             {
-                _publicacionesService.ReportarPublicacion(request);
+                string token = Authorization.Replace("Bearer ", "");
+                _publicacionesService.ReportarPublicacion(token, request);
                 return Ok(new ReportarPublicacionResponse { Success = true, Message = "Publicación reportada con éxito" });
             }
             catch (Exception ex)
@@ -33,11 +36,13 @@ namespace WebApiUdApp.Controllers
         }
 
         [HttpPost("hacer-publicacion")]
-        public IActionResult HacerPublicacion(HacerPublicacionRequest request)
-        {
+        [Authorize]
+        public IActionResult HacerPublicacion([FromHeader] string Authorization, HacerPublicacionRequest request)
+        { 
             try
             {
-                _publicacionesService.HacerPublicacion(request);
+                string token = Authorization.Replace("Bearer ", "");
+                    _publicacionesService.HacerPublicacion(token, request);
                 return Ok(new HacerPublicacionResponse { Success = true, Message = "Publicación realizada con éxito" });
             }
             catch (Exception ex)
@@ -64,11 +69,13 @@ namespace WebApiUdApp.Controllers
         }
 
         [HttpPut("actualizar-publicacion")]
-        public IActionResult ActualizarPublicacion(ActualizarPublicacionRequest request)
+        [Authorize]
+        public IActionResult ActualizarPublicacion([FromHeader] string Authorization, ActualizarPublicacionRequest request)
         {
             try
             {
-                _publicacionesService.ActualizarPublicacion(request);
+                string token = Authorization.Replace("Bearer ", "");
+                _publicacionesService.ActualizarPublicacion(token, request);
                 return Ok(new ActualizarPublicacionResponse { Success = true, Message = "Publicación actualizada con éxito" });
             }
             catch (Exception ex)
@@ -78,11 +85,13 @@ namespace WebApiUdApp.Controllers
         }
 
         [HttpDelete("eliminar-publicacion")]
-        public IActionResult EliminarPublicacion(int id)
+        [Authorize]
+        public IActionResult EliminarPublicacion([FromHeader] string Authorization, int idPublicacion)
         {
             try
             {
-                bool eliminado = _publicacionesService.EliminarPublicacion(id);
+                string token = Authorization.Replace("Bearer ", "");
+                bool eliminado = _publicacionesService.EliminarPublicacion(token, idPublicacion);
                 if (!eliminado)
                 {
                     return StatusCode(500, "Error al eliminar la publicación");

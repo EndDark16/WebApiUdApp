@@ -15,7 +15,7 @@ namespace WebApiUdApp.Services
             dbConnection = new DatabaseConnection();
         }
         //CRUD PUBLICACIONES
-        public void CrearPublicacion(string titulo, DateTime fechaPublicacion, int idUsuarioPublicador)
+        public void CrearPublicacion(int idUsuarioPublicador, string titulo, DateTime fechaPublicacion)
         {
             try
             {
@@ -88,18 +88,18 @@ namespace WebApiUdApp.Services
             }
         }
 
-        public bool ActualizarPublicacion(ActualizarPublicacionRequest request)
+        public bool ActualizarPublicacion(int idUsuario, ActualizarPublicacionRequest request)
         {
             try
             {
                 dbConnection.AbrirConexion();
                 string consulta = @"UPDATE PUBLICACION 
-                                SET titulo = @Titulo, contenido = @Contenido
-                                WHERE idPublicacion = @Id";
+                                SET titulo = @Titulo
+                                WHERE idPublicacion = @IdPublicacion AND fk_idUsuarioPublicador = @IdUsuario";
                 SqlCommand command = new SqlCommand(consulta, dbConnection.Connection);
-                command.Parameters.AddWithValue("@Id", request.IdPublicacion);
+                command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                command.Parameters.AddWithValue("@IdPublicacion", request.IdPublicacion);
                 command.Parameters.AddWithValue("@Titulo", request.Titulo);
-                command.Parameters.AddWithValue("@Contenido", request.Contenido);
 
                 return command.ExecuteNonQuery() > 0;
             }
@@ -114,22 +114,24 @@ namespace WebApiUdApp.Services
             }
         }
 
-        public bool EliminarPublicacion(int id)
+        public bool EliminarPublicacion(int idPublicacion, int idUsuario)
         {
             try
             {
                 dbConnection.AbrirConexion();
+                // Ahora eliminar la publicación
+                string consultaEliminarPublicacion = "DELETE FROM PUBLICACION WHERE idPublicacion = @IdPublicacion AND fk_idUsuarioPublicador = @IdUsuario";
+                SqlCommand command = new SqlCommand(consultaEliminarPublicacion, dbConnection.Connection);
+                command.Parameters.AddWithValue("@IdPublicacion", idPublicacion);
+                command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
                 // Eliminar las referencias en la tabla de reportes
-                string consultaEliminarReportes = "DELETE FROM REPORTE WHERE fk_idPublicacionReportada = @Id";
+                string consultaEliminarReportes = "DELETE FROM REPORTE WHERE fk_idPublicacionReportada = @IdPublicacion";
                 SqlCommand commandEliminarReportes = new SqlCommand(consultaEliminarReportes, dbConnection.Connection);
-                commandEliminarReportes.Parameters.AddWithValue("@Id", id);
+                commandEliminarReportes.Parameters.AddWithValue("@IdPublicacion", idPublicacion);
                 commandEliminarReportes.ExecuteNonQuery();
 
-                // Ahora eliminar la publicación
-                string consultaEliminarPublicacion = "DELETE FROM PUBLICACION WHERE idPublicacion = @Id";
-                SqlCommand command = new SqlCommand(consultaEliminarPublicacion, dbConnection.Connection);
-                command.Parameters.AddWithValue("@Id", id);
+                
 
                 return command.ExecuteNonQuery() > 0;
             }
@@ -153,7 +155,7 @@ namespace WebApiUdApp.Services
 
                 string consulta = @"
                     SELECT P.idPublicacion, P.fk_idUsuarioPublicador, P.titulo, ISNULL(P.contenido, '') AS contenido, P.fechaPublicacion, 
-                           U.nombreUsuario AS nombreUsuarioPublicador,
+                           U.nombreUsuario +' ' + U.apellidoUsuario AS nombreUsuarioPublicador,
                            ISNULL(P.comentarios, 0) AS comentarios, ISNULL(P.likes, 0) AS likes,
 	   
                            CASE 

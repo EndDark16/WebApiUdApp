@@ -14,14 +14,17 @@ namespace WebApiUdApp.Services
             _publicacionesRepositorio = publicacionesRepositorio;
         }
 
-        public void ReportarPublicacion(ReportarPublicacionRequest request)
+        public void ReportarPublicacion(string token, ReportarPublicacionRequest request)
         {
-            _publicacionesRepositorio.ReportarPublicacion(request.IdPublicacion, DateTime.Now, request.Motivo, request.IdUusuarioReportador);
+            int idUsuarioReportador = ObtenerIdUsuarioDesdeToken(token);
+            _publicacionesRepositorio.ReportarPublicacion(request.IdPublicacion, DateTime.Now, request.Motivo, idUsuarioReportador);
         }
 
-        public void HacerPublicacion(HacerPublicacionRequest request)
+        public void HacerPublicacion(string token, HacerPublicacionRequest request)
         {
-            _publicacionesRepositorio.CrearPublicacion(request.Titulo, DateTime.Now, request.IdUsuario);
+            int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+            _publicacionesRepositorio.CrearPublicacion(idUsuario, request.Titulo, DateTime.Now);
+
         }
         public PublicacionDto ObtenerPublicacionPorId(int id)
         {
@@ -37,11 +40,12 @@ namespace WebApiUdApp.Services
             }
         }
 
-        public bool ActualizarPublicacion(ActualizarPublicacionRequest request)
+        public bool ActualizarPublicacion(string token, ActualizarPublicacionRequest request)
         {
             try
             {
-                return _publicacionesRepositorio.ActualizarPublicacion(request);
+                int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+                return _publicacionesRepositorio.ActualizarPublicacion(idUsuario, request);
             }
             catch (Exception ex)
             {
@@ -50,11 +54,12 @@ namespace WebApiUdApp.Services
             }
         }
 
-        public bool EliminarPublicacion(int id)
+        public bool EliminarPublicacion(string token, int idPublicacion)
         {
             try
             {
-                return _publicacionesRepositorio.EliminarPublicacion(id);
+                int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+                return _publicacionesRepositorio.EliminarPublicacion(idPublicacion, idUsuario);
             }
             catch (Exception ex)
             {
@@ -73,7 +78,19 @@ namespace WebApiUdApp.Services
                 _publicacionesRepositorio.EliminarLike(request.IdUsuario, request.IdPublicacion);
             }
         }
+        private int ObtenerIdUsuarioDesdeToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+            string sid = jsonToken?.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Sid)?.Value;
 
+            if (string.IsNullOrEmpty(sid))
+            {
+                throw new UnauthorizedAccessException("Token inválido.");
+            }
+
+            return int.Parse(sid);
+        }
         public IEnumerable<PublicacionDto> ObtenerPublicacionesRecientes(ClaimsPrincipal user)
         {
             var identity = user.Identity as ClaimsIdentity;

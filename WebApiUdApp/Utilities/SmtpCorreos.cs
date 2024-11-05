@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 
 namespace WebApiUdApp.Utilities
 {
@@ -27,6 +28,42 @@ namespace WebApiUdApp.Utilities
                 mensaje.Body = bodyHtml;
                 // Enviar el correo
                 await clienteSmtp.SendMailAsync(mensaje);
+            }
+            catch (Exception ex)
+            {
+                // Capturar errores en el envío de correo
+                Console.WriteLine("Error al enviar correo: " + ex.Message);
+            }
+        }
+        public async Task EnviarCorreoConPDFAdjunto(string destinatario, string asunto, string body, byte[] pdfBytes, string nombrepdf)
+        {
+            try
+            {
+                var clieneSmtp = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("udappx@gmail.com", "mnsrsyclbpiodmaj"),
+                    EnableSsl = true,
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("udappx@gmail.com"),
+                    Subject = asunto,
+                    Body = body,
+                    IsBodyHtml = true,
+                };
+                mailMessage.To.Add(destinatario);
+
+                // Crear el adjunto desde el PDF en bytes
+                using (var ms = new MemoryStream(pdfBytes))
+                {
+                    var attachment = new Attachment(ms, $"{nombrepdf}.pdf", MediaTypeNames.Application.Pdf);
+                    mailMessage.Attachments.Add(attachment);
+
+                    await clieneSmtp.SendMailAsync(mailMessage);
+                }
             }
             catch (Exception ex)
             {
