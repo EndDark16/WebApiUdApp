@@ -14,13 +14,13 @@ namespace WebApiUdApp.Services
             _enviarCorreoConPDF = enviarCorreoConPDF;
         }
 
-        public async Task EnviarCorreoReporteAsync(string token, string nombreReporte)
+        public async Task EnviarCorreoReporteAsync(string token)
         {
             ReporteRepositorio reporteRepositorio = new ReporteRepositorio(); 
             int idUsuario = ObtenerIdUsuarioDesdeToken(token);
             string destinatario = reporteRepositorio.ObtenerCorreoPorId(idUsuario);
             // Llama al método CorreoReporte de EnviarCorreoConPDF
-            await _enviarCorreoConPDF.CorreoReporte(destinatario, nombreReporte);
+            await _enviarCorreoConPDF.CorreoReporte(destinatario);
 
         }
         private int ObtenerIdUsuarioDesdeToken(string token)

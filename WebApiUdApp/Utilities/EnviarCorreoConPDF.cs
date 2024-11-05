@@ -22,13 +22,13 @@ namespace WebApiUdApp.Utilities
             _reportesRepositorio = reportesRepositorio;
         }
 
-        public async Task CorreoReporte(string destinatario, string NombreReporte)
+        public async Task CorreoReporte(string destinatario)
         {
             try
             {
                 
                 //destinatario = "andresfelipe16200411@gmail.com"; // Para pruebas
-                string asunto = $"Reporte de {NombreReporte} - UdApp";
+                string asunto = $"Reporte de Publicaciones Reportadas - UdApp";
                 string body = "Adjunto se encuentra el reporte en formato PDF.";
                 string nombrePDF = "PublicacionesReportadas";
 

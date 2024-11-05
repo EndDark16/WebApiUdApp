@@ -18,12 +18,12 @@ namespace WebApiUdApp.Controllers
 
         [HttpPost("enviar-reporte")]
         [Authorize]
-        public async Task<IActionResult> EnviarReporte([FromHeader] string Authorization, [FromBody] EnviarReporteRequest request)
+        public async Task<IActionResult> EnviarReporte([FromHeader] string Authorization)
         {
             try
             {
                 string token = Authorization.Replace("Bearer ", "");
-                await _reporteService.EnviarCorreoReporteAsync(token, request.NombreReporte);
+                await _reporteService.EnviarCorreoReporteAsync(token);
                 return Ok(new { message = "Reporte enviado exitosamente." });
             }
             catch (Exception ex)
