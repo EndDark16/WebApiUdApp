@@ -1,17 +1,27 @@
+using DinkToPdf.Contracts;
+using DinkToPdf;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics;
 using System.Text;
 using WebApiUdApp.Repositories;
 using WebApiUdApp.Services;
+using WebApiUdApp.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<UserRepositorio>();
-builder.Services.AddScoped<PublicacionesRepositorio>(); 
-builder.Services.AddScoped<PublicacionesService>();      // Nuevo registro de PublicacionesService
-builder.Services.AddScoped<UsuarioServicio>();           // Asegúrate de que cualquier otro servicio también esté registrado
+builder.Services.AddScoped<PublicacionesRepositorio>();
+builder.Services.AddScoped<PublicacionesService>();      // Registro de PublicacionesService
+builder.Services.AddScoped<UsuarioServicio>();
+builder.Services.AddScoped<ReporteService>();
+builder.Services.AddScoped<ReporteRepositorio>();        // Registro de ReporteRepositorio
+builder.Services.AddTransient<SmtpCorreos>();            // Registro de SmtpCorreos
+builder.Services.AddTransient<EnviarCorreoConPDF>(); // Registro de la clase de envío de correos con PDF
+
+// Registro del convertidor PDF
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
 builder.Services.AddControllers();
 
@@ -107,6 +117,8 @@ app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.MapControllers();
 

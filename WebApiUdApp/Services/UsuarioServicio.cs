@@ -37,15 +37,15 @@ namespace WebApiUdApp.Services
             var claims = new[]
             {
             new Claim(JwtRegisteredClaimNames.Sid, idUsuario.ToString()), // ID del usuario
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // Identificador único
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) 
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ObtenerClaveJwt()));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: null, // O el emisor que estés utilizando
-                audience: null, // O la audiencia que estés utilizando
+                issuer: null,
+                audience: null,
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30), // Expiración del token
                 signingCredentials: creds
