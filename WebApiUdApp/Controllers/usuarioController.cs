@@ -172,7 +172,7 @@ namespace WebApiUdApp.Controllers
                 throw new UnauthorizedAccessException("Token inválido o expirado.");
             }
 
-            return int.Parse(sid); // Convertimos el claim 'sid' en el idUsuario
+            return int.Parse(sid);
         }
     }
 }

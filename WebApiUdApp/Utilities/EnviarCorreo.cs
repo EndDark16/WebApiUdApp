@@ -1,4 +1,8 @@
-﻿namespace WebApiUdApp.Utilities
+﻿using DinkToPdf.Contracts;
+using WebApiUdApp.Dtos;
+using WebApiUdApp.Repositories;
+using WebApiUdApp.Services;
+namespace WebApiUdApp.Utilities
 {
     public class EnviarCorreo
     {

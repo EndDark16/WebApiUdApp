@@ -3,60 +3,60 @@
   "WorkspaceRootPath": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\controllers\\reportecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\controllers\\reportecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\services\\reporteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\services\\reporteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\utilities\\enviarcorreoconpdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\utilities\\enviarcorreoconpdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\request\\publicacionesrequest\\reportarpublicacionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\request\\publicacionesrequest\\reportarpublicacionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\request\\reporterequest\\enviarreporterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\request\\reporterequest\\enviarreporterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\controllers\\publicacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\controllers\\publicacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\repositories\\publicacionesrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\repositories\\publicacionesrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\repositories\\userrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\repositories\\userrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\services\\publicacionesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\services\\publicacionesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\utilities\\argon2encryptation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\utilities\\argon2encryptation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\repositories\\reporterepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\repositories\\reporterepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\publicaciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\publicaciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\repositories\\publicacionesrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\repositories\\publicacionesrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\request\\publicacionesrequest\\actualizarpublicacionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\request\\publicacionesrequest\\actualizarpublicacionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\request\\publicacionesrequest\\hacerpublicacionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\request\\publicacionesrequest\\hacerpublicacionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\services\\usuarioservicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\services\\usuarioservicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\response\\userresponse\\actualizarusuarioresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\response\\userresponse\\actualizarusuarioresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\response\\userresponse\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\response\\userresponse\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\utilities\\smtpcorreos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\utilities\\smtpcorreos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\utilities\\enviarcorreo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\utilities\\enviarcorreo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\repositories\\userrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\repositories\\userrepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|c:\\users\\usuario\\documents\\github\\webapiudapp\\webapiudapp\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4C5DEC9D-CBC0-4183-9D81-9597439DE757}|WebApiUdApp\\WebApiUdApp.csproj|solutionrelative:webapiudapp\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,177 +66,182 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PublicacionesService.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\PublicacionesService.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Services\\PublicacionesService.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\PublicacionesService.cs",
-              "RelativeToolTip": "WebApiUdApp\\Services\\PublicacionesService.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAASwFQAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "reporteController.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\reporteController.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Controllers\\reporteController.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\reporteController.cs",
+              "RelativeToolTip": "WebApiUdApp\\Controllers\\reporteController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAmwBQAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T01:00:26.417Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PublicacionesRepositorio.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
-              "RelativeToolTip": "WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
-              "ViewState": "AgIAAIYAAAAAAAAAAAAwwJQAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T01:00:26.434Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Argon2Encryptation.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\Argon2Encryptation.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Utilities\\Argon2Encryptation.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\Argon2Encryptation.cs",
-              "RelativeToolTip": "WebApiUdApp\\Utilities\\Argon2Encryptation.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T15:05:05.795Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PublicacionDto.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\PublicacionDto.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\PublicacionDto.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\PublicacionDto.cs",
-              "RelativeToolTip": "WebApiUdApp\\Dtos\\PublicacionDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T15:04:14.553Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "LoginResponse.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Response\\UserResponse\\LoginResponse.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\Response\\UserResponse\\LoginResponse.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Response\\UserResponse\\LoginResponse.cs",
-              "RelativeToolTip": "WebApiUdApp\\Dtos\\Response\\UserResponse\\LoginResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T12:56:00.376Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ActualizarUsuarioResponse.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Response\\UserResponse\\ActualizarUsuarioResponse.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\Response\\UserResponse\\ActualizarUsuarioResponse.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Response\\UserResponse\\ActualizarUsuarioResponse.cs",
-              "RelativeToolTip": "WebApiUdApp\\Dtos\\Response\\UserResponse\\ActualizarUsuarioResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T12:53:47.233Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "UserDto.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\UserDto.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\UserDto.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\UserDto.cs",
-              "RelativeToolTip": "WebApiUdApp\\Dtos\\UserDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T02:54:44.444Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "EnviarCorreo.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\EnviarCorreo.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Utilities\\EnviarCorreo.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\EnviarCorreo.cs",
-              "RelativeToolTip": "WebApiUdApp\\Utilities\\EnviarCorreo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T23:05:20.63Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "SmtpCorreos.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\SmtpCorreos.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Utilities\\SmtpCorreos.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\SmtpCorreos.cs",
-              "RelativeToolTip": "WebApiUdApp\\Utilities\\SmtpCorreos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T23:05:20.66Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "publicacionesController.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\publicacionesController.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Controllers\\publicacionesController.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\publicacionesController.cs",
-              "RelativeToolTip": "WebApiUdApp\\Controllers\\publicacionesController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAqwDAAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T23:05:20.732Z",
+              "WhenOpened": "2024-11-04T22:59:35.333Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Program.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Program.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Program.cs",
-              "RelativeToolTip": "WebApiUdApp\\Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAAjAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ReporteService.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\ReporteService.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Services\\ReporteService.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\ReporteService.cs",
+              "RelativeToolTip": "WebApiUdApp\\Services\\ReporteService.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABAAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T13:22:00.093Z",
+              "WhenOpened": "2024-11-04T22:59:35.318Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EnviarReporteRequest.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\ReporteRequest\\EnviarReporteRequest.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\Request\\ReporteRequest\\EnviarReporteRequest.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\ReporteRequest\\EnviarReporteRequest.cs",
+              "RelativeToolTip": "WebApiUdApp\\Dtos\\Request\\ReporteRequest\\EnviarReporteRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T14:34:26.676Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "usuarioController.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\usuarioController.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Controllers\\usuarioController.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\usuarioController.cs",
-              "RelativeToolTip": "WebApiUdApp\\Controllers\\usuarioController.cs",
-              "ViewState": "AgIAAH0AAAAAAAAAAAAAAHQAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-28T15:37:05.203Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UsuarioServicio.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\UsuarioServicio.cs",
-              "RelativeDocumentMoniker": "WebApiUdApp\\Services\\UsuarioServicio.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\UsuarioServicio.cs",
-              "RelativeToolTip": "WebApiUdApp\\Services\\UsuarioServicio.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAAAEAAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-06T16:26:36.206Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "UserRepositorio.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\UserRepositorio.cs",
               "RelativeDocumentMoniker": "WebApiUdApp\\Repositories\\UserRepositorio.cs",
               "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\UserRepositorio.cs",
               "RelativeToolTip": "WebApiUdApp\\Repositories\\UserRepositorio.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAAAEMAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAABUAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-28T15:37:01.618Z"
+              "WhenOpened": "2024-11-05T14:06:27.576Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ReporteRepositorio.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\ReporteRepositorio.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Repositories\\ReporteRepositorio.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\ReporteRepositorio.cs",
+              "RelativeToolTip": "WebApiUdApp\\Repositories\\ReporteRepositorio.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAqwDgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T14:06:17.328Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EnviarCorreoConPDF.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\EnviarCorreoConPDF.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Utilities\\EnviarCorreoConPDF.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\EnviarCorreoConPDF.cs",
+              "RelativeToolTip": "WebApiUdApp\\Utilities\\EnviarCorreoConPDF.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwBgAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T00:41:32.241Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ReportarPublicacionRequest.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ReportarPublicacionRequest.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ReportarPublicacionRequest.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ReportarPublicacionRequest.cs",
+              "RelativeToolTip": "WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ReportarPublicacionRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T00:27:36.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ActualizarPublicacionRequest.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ActualizarPublicacionRequest.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ActualizarPublicacionRequest.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ActualizarPublicacionRequest.cs",
+              "RelativeToolTip": "WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\ActualizarPublicacionRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-04T23:04:36.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "HacerPublicacionRequest.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\HacerPublicacionRequest.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\HacerPublicacionRequest.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\HacerPublicacionRequest.cs",
+              "RelativeToolTip": "WebApiUdApp\\Dtos\\Request\\PublicacionesRequest\\HacerPublicacionRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-04T22:58:29.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PublicacionesService.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\PublicacionesService.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Services\\PublicacionesService.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\PublicacionesService.cs",
+              "RelativeToolTip": "WebApiUdApp\\Services\\PublicacionesService.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAAAFAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-04T22:53:58.541Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PublicacionesRepositorio.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
+              "RelativeToolTip": "WebApiUdApp\\Repositories\\PublicacionesRepositorio.cs",
+              "ViewState": "AgIAAPYAAAAAAAAAAAAAwPoAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-02T13:51:37.202Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "publicacionesController.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\publicacionesController.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Controllers\\publicacionesController.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Controllers\\publicacionesController.cs",
+              "RelativeToolTip": "WebApiUdApp\\Controllers\\publicacionesController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAACcAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-04T00:34:48.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "SmtpCorreos.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\SmtpCorreos.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Utilities\\SmtpCorreos.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Utilities\\SmtpCorreos.cs",
+              "RelativeToolTip": "WebApiUdApp\\Utilities\\SmtpCorreos.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAnwEEAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T14:35:02.788Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UsuarioServicio.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\UsuarioServicio.cs",
+              "RelativeDocumentMoniker": "WebApiUdApp\\Services\\UsuarioServicio.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\WebApiUdApp\\WebApiUdApp\\Services\\UsuarioServicio.cs",
+              "RelativeToolTip": "WebApiUdApp\\Services\\UsuarioServicio.cs",
+              "ViewState": "AgIAAL4AAAAAAAAAAAAnwMkAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T23:59:34.749Z"
             }
           ]
         }

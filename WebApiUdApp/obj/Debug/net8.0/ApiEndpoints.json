@@ -1,5 +1,141 @@
 [
   {
+    "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
+    "Method": "ActualizarComentario",
+    "RelativePath": "api/Comentario/actualizar-comentario",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "comentarioActualizado",
+        "Type": "WebApiUdApp.Dtos.Request.ComentarioRequest.ActualizarComentarioRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
+    "Method": "GetComentariosPorUsuario",
+    "RelativePath": "api/Comentario/comentarios-por-usuario",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[WebApiUdApp.Dtos.ComentarioDto, WebApiUdApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
+    "Method": "CrearComentario",
+    "RelativePath": "api/Comentario/crear-comentario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "WebApiUdApp.Dtos.Request.ComentarioRequest.CrearComentarioRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
+    "Method": "EliminarComentario",
+    "RelativePath": "api/Comentario/eliminar-comentario",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComentario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
+    "Method": "GetComentarioPorId",
+    "RelativePath": "api/Comentario/obtener-comentario",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idComentario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebApiUdApp.Dtos.ComentarioDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
+    "Method": "GetComentariosPorPublicacion",
+    "RelativePath": "api/Comentario/publicacion/{idPublicacion}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idPublicacion",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[WebApiUdApp.Dtos.ComentarioDto, WebApiUdApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
     "Method": "ActualizarPublicacion",
     "RelativePath": "api/Publicaciones/actualizar-publicacion",
@@ -7,6 +143,11 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
       {
         "Name": "request",
         "Type": "WebApiUdApp.Dtos.Request.PublicacionesRequest.ActualizarPublicacionRequest",
@@ -24,7 +165,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "idPublicacion",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -39,6 +185,11 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
       {
         "Name": "request",
         "Type": "WebApiUdApp.Dtos.Request.PublicacionesRequest.HacerPublicacionRequest",
@@ -82,6 +233,11 @@
     "Order": 0,
     "Parameters": [
       {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "request",
         "Type": "WebApiUdApp.Dtos.Request.PublicacionesRequest.ReportarPublicacionRequest",
         "IsRequired": true
@@ -100,6 +256,27 @@
       {
         "Name": "request",
         "Type": "WebApiUdApp.Dtos.Request.PublicacionesRequest.ToggleLikeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ReporteController",
+    "Method": "EnviarReporte",
+    "RelativePath": "api/Reporte/enviar-reporte",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "WebApiUdApp.Dtos.Request.ReporteRequest.EnviarReporteRequest",
         "IsRequired": true
       }
     ],
