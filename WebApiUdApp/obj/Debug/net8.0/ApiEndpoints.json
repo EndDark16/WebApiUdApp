@@ -136,6 +136,54 @@
     ]
   },
   {
+    "ContainingType": "WebApiUdApp.Controllers.ModeradorController",
+    "Method": "EliminarPublicacionMod",
+    "RelativePath": "api/Moderador/eliminar-publicacion-mod",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idReporte",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ModeradorController",
+    "Method": "EliminarReporte",
+    "RelativePath": "api/Moderador/eliminar-reporte-mod",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idReporte",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ModeradorController",
+    "Method": "ListarPublicacionesReportadas",
+    "RelativePath": "api/Moderador/listar-publicaciones-reportadas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApiUdApp.Controllers.PublicacionesController",
     "Method": "ActualizarPublicacion",
     "RelativePath": "api/Publicaciones/actualizar-publicacion",
@@ -263,8 +311,8 @@
   },
   {
     "ContainingType": "WebApiUdApp.Controllers.ReporteController",
-    "Method": "EnviarReporte",
-    "RelativePath": "api/Reporte/enviar-reporte",
+    "Method": "EnviarReporteLikeadas",
+    "RelativePath": "api/Reporte/enviar-reporte-likeadas",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -273,11 +321,22 @@
         "Name": "Authorization",
         "Type": "System.String",
         "IsRequired": false
-      },
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ReporteController",
+    "Method": "EnviarReporteReportadas",
+    "RelativePath": "api/Reporte/enviar-reporte-reportadas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Name": "request",
-        "Type": "WebApiUdApp.Dtos.Request.ReporteRequest.EnviarReporteRequest",
-        "IsRequired": true
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

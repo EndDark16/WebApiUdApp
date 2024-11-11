@@ -254,12 +254,8 @@ namespace WebApiUdApp.Services
             {
                 dbConnection.AbrirConexion();
                 // Consulta SQL para actualizar la publicación con el estado de reportada y el motivo
-                string consulta = @"UPDATE PUBLICACION SET Reportada = 1 WHERE idPublicacion = @IdPublicacion; 
-                INSERT INTO REPORTE (motivoReporte, fechaReporte, fk_idUsuarioReportador, fk_idPublicacionReportada)
-						VALUES (@motivo, @fechaReporte, @idUsuarioReportador, @idPublicacion)";
-
-
-
+                string consulta = @"INSERT INTO REPORTE (motivoReporte, fechaReporte, fk_idUsuarioReportador, fk_idPublicacionReportada)
+						            VALUES (@motivo, @fechaReporte, @idUsuarioReportador, @idPublicacion)";
                 SqlCommand command = new SqlCommand(consulta, dbConnection.Connection);
                 // Utilizar parámetros parametrizados para prevenir SQL Injection
                 command.Parameters.AddWithValue("@motivo", motivo);
@@ -267,6 +263,7 @@ namespace WebApiUdApp.Services
                 command.Parameters.AddWithValue("@idUsuarioReportador", idUsuarioReportador);
                 command.Parameters.AddWithValue("@IdPublicacion", idPublicacion);
 
+                command.ExecuteNonQuery();
                 command.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -406,7 +403,7 @@ namespace WebApiUdApp.Services
                 dbConnection.AbrirConexion();
 
                 string consulta = @"
-            SELECT p.idPublicacion, p.titulo, p.contenido, p.fechaPublicacion, p.likes
+            SELECT TOP 20 p.idPublicacion, p.titulo, p.fechaPublicacion, p.likes
             FROM PUBLICACION p
             ORDER BY p.likes DESC";
 
@@ -420,9 +417,8 @@ namespace WebApiUdApp.Services
                     {
                         IdPublicacion = reader.GetInt32(0),
                         Titulo = reader.GetString(1),
-                        Contenido = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
-                        FechaPublicacion = reader.GetDateTime(3),
-                        NumeroLikes = reader.GetInt32(4)
+                        FechaPublicacion = reader.GetDateTime(2),
+                        NumeroLikes = reader.GetInt32(3)
                     };
 
                     publicaciones.Add(publicacion);
