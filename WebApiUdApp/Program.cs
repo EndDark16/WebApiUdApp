@@ -11,14 +11,16 @@ using WebApiUdApp.Utilities;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<UserRepositorio>();
+builder.Services.AddScoped<UsuarioRepositorio>();
 builder.Services.AddScoped<PublicacionesRepositorio>();
-builder.Services.AddScoped<PublicacionesService>();      // Registro de PublicacionesService
+builder.Services.AddScoped<PublicacionesService>();
 builder.Services.AddScoped<UsuarioServicio>();
 builder.Services.AddScoped<ReporteService>();
-builder.Services.AddScoped<ReporteRepositorio>();        // Registro de ReporteRepositorio
-builder.Services.AddTransient<SmtpCorreos>();            // Registro de SmtpCorreos
-builder.Services.AddTransient<EnviarCorreoConPDF>(); // Registro de la clase de envío de correos con PDF
+builder.Services.AddScoped<ReporteRepositorio>();
+builder.Services.AddScoped<ModeradorService>();
+builder.Services.AddScoped<ModeradorRepositorio>();
+builder.Services.AddTransient<SmtpCorreos>();
+builder.Services.AddTransient<GenerarHtmlString>();
 
 // Registro del convertidor PDF
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
@@ -30,15 +32,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        policy.WithOrigins("https://localhost:44322", "https://localhost:7023")  // Ajusta esto según el origen de tu frontend
+        policy.WithOrigins("https://localhost:44322", "https://localhost:7023")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
 });
-
-// Configuración de Swagger/OpenAPI
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 // Configuración de JWT desde appsettings.json
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -57,11 +55,15 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
         ValidateAudience = false,
         IssuerSigningKey = signingKey,
         ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero
+        ClockSkew = TimeSpan.Zero,
+
+        // Configura "roleName" para que se trate como el rol del usuario
+        RoleClaimType = "roleName"
     };
 });
 
 // Configuración de Swagger para JWT
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo

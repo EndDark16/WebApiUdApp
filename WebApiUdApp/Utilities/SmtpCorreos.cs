@@ -6,63 +6,31 @@ namespace WebApiUdApp.Utilities
 {
     public class SmtpCorreos
     {
-        public async Task EnviarCorreoConEstilo(string destinatario, string asunto, String bodyHtml)
+        public async Task EnviarCorreoConEstilo(string destinatario, string asunto, string bodyHtml)
         {
             try
             {
-                // Configurar el cliente SMTP para enviar correos
-                SmtpClient clienteSmtp = new SmtpClient("smtp.gmail.com"); // Reemplaza "smtp.servidor.com" por el servidor SMTP que corresponda
-                clienteSmtp.Port = 587; // Puerto SMTP seguro (SSL/TLS)
-                clienteSmtp.UseDefaultCredentials = false;
-                clienteSmtp.Credentials = new NetworkCredential("udappx@gmail.com", "mnsrsyclbpiodmaj");
-                clienteSmtp.EnableSsl = true;
-
-                // Crear el mensaje de correo con HTML y estilos CSS en línea
-                MailMessage mensaje = new MailMessage();
-                mensaje.From = new MailAddress("udappx@gmail.com"); // Dirección de correo del remitente
-                mensaje.To.Add(destinatario); // Agregar el destinatario0.
-                mensaje.Subject = asunto; // Asunto del correo
-
-                // Agregar el cuerpo del correo con estilos CSS en línea
-                mensaje.IsBodyHtml = true;
-                mensaje.Body = bodyHtml;
-                // Enviar el correo
-                await clienteSmtp.SendMailAsync(mensaje);
-            }
-            catch (Exception ex)
-            {
-                // Capturar errores en el envío de correo
-                Console.WriteLine("Error al enviar correo: " + ex.Message);
-            }
-        }
-        public async Task EnviarCorreoConPDFAdjunto(string destinatario, string asunto, string body, byte[] pdfBytes, string nombrepdf)
-        {
-            try
-            {
-                var clieneSmtp = new SmtpClient("smtp.gmail.com")
+                using (var clienteSmtp = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential("udappx@gmail.com", "mnsrsyclbpiodmaj"),
                     EnableSsl = true,
-                };
-
-                var mailMessage = new MailMessage
+                    Timeout = 20000 // Opcional: Aumenta el tiempo de espera (20 segundos)
+                })
+                using (var mensaje = new MailMessage
                 {
                     From = new MailAddress("udappx@gmail.com"),
                     Subject = asunto,
-                    Body = body,
-                    IsBodyHtml = true,
-                };
-                mailMessage.To.Add(destinatario);
-
-                // Crear el adjunto desde el PDF en bytes
-                using (var ms = new MemoryStream(pdfBytes))
+                    Body = bodyHtml,
+                    IsBodyHtml = true
+                })
                 {
-                    var attachment = new Attachment(ms, $"{nombrepdf}.pdf", MediaTypeNames.Application.Pdf);
-                    mailMessage.Attachments.Add(attachment);
+                    // Agregar el destinatario
+                    mensaje.To.Add(destinatario);
 
-                    await clieneSmtp.SendMailAsync(mailMessage);
+                    // Enviar el correo
+                    await clienteSmtp.SendMailAsync(mensaje);
                 }
             }
             catch (Exception ex)
@@ -71,5 +39,43 @@ namespace WebApiUdApp.Utilities
                 Console.WriteLine("Error al enviar correo: " + ex.Message);
             }
         }
+
+        public async Task EnviarCorreoConPDFAdjunto(string destinatario, string asunto, string body, byte[] pdfBytes, string nombrepdf)
+        {
+            try
+            {
+                using (var clieneSmtp = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("udappx@gmail.com", "mnsrsyclbpiodmaj"),
+                    EnableSsl = true,
+                })
+                using (var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("udappx@gmail.com"),
+                    Subject = asunto,
+                    Body = body,
+                    IsBodyHtml = true,
+                })
+                {
+                    mailMessage.To.Add(destinatario);
+
+                    // Crear el adjunto desde el PDF en bytes
+                    using (var ms = new MemoryStream(pdfBytes))
+                    {
+                        var attachment = new Attachment(ms, $"{nombrepdf}.pdf", MediaTypeNames.Application.Pdf);
+                        mailMessage.Attachments.Add(attachment);
+
+                        await clieneSmtp.SendMailAsync(mailMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al enviar correo: " + ex.Message);
+            }
+        }
+
     }
 }

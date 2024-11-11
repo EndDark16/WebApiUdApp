@@ -11,31 +11,33 @@ using WebApiUdApp.Utilities;
 
 namespace WebApiUdApp.Repositories
 {
-    public class UserRepositorio
+    public class UsuarioRepositorio
     {
         private DatabaseConnection _dbConnection;
 
-        public UserRepositorio()
+        public UsuarioRepositorio()
         {
             _dbConnection = new DatabaseConnection();
         }
         
-        public UserDto? GetUsuarioById(int idUsuario)
+        public UserDto GetUsuarioById(int idUsuario)
         {
             try
             {
                 _dbConnection.AbrirConexion();
-                string consulta = @"SELECT [idUsuario]
-                                          ,[cedulaUsuario]
-                                          ,[nombreUsuario]
-                                          ,[apellidoUsuario]
-                                          ,[telefono]
-                                          ,[direccion]
-                                          ,[email]
-                                          ,[contrasena]
-                                          ,[fk_idRol]
-                                          ,[estadoSuspension]
-	                                      FROM USUARIO WHERE idUsuario = @IdUsuario";
+                string consulta = @"SELECT U.[idUsuario]
+                                          ,U.[cedulaUsuario]
+                                          ,U.[nombreUsuario]
+                                          ,U.[apellidoUsuario]
+                                          ,U.[telefono]
+                                          ,U.[direccion]
+                                          ,U.[email]
+                                          ,U.[fk_idRol]
+										  ,R.[nombreRol]
+                                          ,U.[estadoSuspension]
+	                                      FROM USUARIO U
+										  INNER JOIN ROL R ON U.fk_idRol = R.idRol
+										  WHERE idUsuario = @IdUsuario";
                 SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
                 command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
@@ -51,12 +53,17 @@ namespace WebApiUdApp.Repositories
                         Telefono = reader["telefono"].ToString(),
                         Direccion = reader["direccion"].ToString(),
                         Email = reader["email"].ToString(),
-                        Contrasena = reader["contrasena"].ToString(),
-                        IdRol = reader.IsDBNull("fk_IdRol") ? null : reader.GetInt32("fk_IdRol"),
+                        IdRol = reader.GetInt32("fk_IdRol"),
+                        NombreRol = reader.GetString("nombreRol"),
                         EstadoSuspension = reader.IsDBNull("estadoSuspension") ? null : reader.GetBoolean("estadoSuspension")
                     };
                 }
 
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error al obtener el usuario: " + ex.Message);
                 return null;
             }
             finally
@@ -93,7 +100,7 @@ namespace WebApiUdApp.Repositories
                 command.Parameters.AddWithValue("@Direccion", usuarioDto.Direccion);
                 command.Parameters.AddWithValue("@Email", usuarioDto.Email);
                 command.Parameters.AddWithValue("@Contrasena", usuarioDto.Contrasena);
-                command.Parameters.AddWithValue("@IdRol", usuarioDto.IdRol ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("@IdRol", usuarioDto.IdRol);
                 command.Parameters.AddWithValue("@EstadoSuspension", usuarioDto.EstadoSuspension ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
@@ -271,6 +278,32 @@ namespace WebApiUdApp.Repositories
             }
         }
 
+        public bool UsuarioSuspendido(string correo)
+        {
+            try
+            {
+                // Optimización: usar SELECT 1 en lugar de COUNT(*)
+                string consulta = "SELECT 1 FROM [dbo].[USUARIO] WHERE email = @Email AND estadoSuspension = 1";
+
+                _dbConnection.AbrirConexion();
+                SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
+                command.Parameters.AddWithValue("@Email", correo);
+
+                // Ejecuta la consulta y verifica si encontró algún registro
+                object resultado = command.ExecuteScalar();
+                _dbConnection.CerrarConexion();
+
+                // Si resultado no es null, significa que existe un usuario suspendido con ese correo
+                return resultado != null;
+            }
+            catch
+            {
+                // Manejo de excepciones: en caso de error, retorna false o maneja el error según sea necesario
+                return false;
+            }
+        }
+
+
         public bool ActualizarDatosUsuario(UserDto usuarioActualizado)
         {
             try
@@ -304,7 +337,6 @@ namespace WebApiUdApp.Repositories
                 return false;
             }
         }
-
 
         /*      Funciones para el administrador     */
 

@@ -31,12 +31,12 @@ namespace WebApiUdApp.Controllers
                     return Unauthorized(new LoginResponse
                     {
                         Exito = false,
-                        Mensaje = "Credenciales inválidas."
+                        Mensaje = respuesta.Mensaje
                     });
                 }
 
                 // Generar token JWT
-                string token = _usuarioServicio.GenerarToken(respuesta.Usuario.IdUsuario);
+                string token = _usuarioServicio.GenerarToken(respuesta.Usuario.IdUsuario, respuesta.Usuario.NombreRol);
 
                 return Ok(new
                 {

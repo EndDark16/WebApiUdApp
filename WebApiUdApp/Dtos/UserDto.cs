@@ -10,7 +10,8 @@
         public string Email { get; set; } = string.Empty;
         public string Contrasena { get; set; } = string.Empty;
         public int IdUsuario { get; set; }
-        public int? IdRol { get; set; }
+        public int IdRol { get; set; }
+        public string NombreRol { get; set; } = string.Empty;
         public Boolean? EstadoSuspension { get; set; }
 
     }

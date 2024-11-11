@@ -18,12 +18,12 @@ namespace WebApiUdApp.Services
     {
 
         private readonly IConfiguration _configuration;
-        private readonly UserRepositorio _userRepo;
+        private readonly UsuarioRepositorio _userRepo;
 
-        public UsuarioServicio(UserRepositorio userRepo, IConfiguration configuration)
+        public UsuarioServicio(UsuarioRepositorio userRepo, IConfiguration configuration)
         {
             _configuration = configuration;
-            _userRepo = new UserRepositorio(); // Instancia del repositorio para CRUD
+            _userRepo = new UsuarioRepositorio(); // Instancia del repositorio para CRUD
         }
 
         public string ObtenerClaveJwt()
@@ -32,11 +32,12 @@ namespace WebApiUdApp.Services
             return _configuration["Jwt:Key"];
         }
 
-        public string GenerarToken(int idUsuario)
+        public string GenerarToken(int idUsuario, string NombreRol)
         {
             var claims = new[]
             {
             new Claim(JwtRegisteredClaimNames.Sid, idUsuario.ToString()), // ID del usuario
+            new Claim("roleName", NombreRol), // Nombre Rol del usuario
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) 
             };
 
@@ -124,10 +125,15 @@ namespace WebApiUdApp.Services
         // Verifica si un correo ya está registrado en la base de datos
         private bool YaRegistrado(string email)
         {
-            UserRepositorio userRepo = new UserRepositorio();
+            UsuarioRepositorio userRepo = new UsuarioRepositorio();
             return userRepo.CorreoYaRegistrado(email);
         }
-
+        private bool UsuarioSuspendido(string email)
+        {
+            UsuarioRepositorio userRepo = new UsuarioRepositorio();
+            return userRepo.UsuarioSuspendido(email);
+        }
+        
         // Método para comprobar los errores en el registro
         public string ComprobarNuevoRegistro(UserDto registroNuevo)
         {
@@ -193,7 +199,7 @@ namespace WebApiUdApp.Services
 
             try
             {
-                UserRepositorio userRepo = new UserRepositorio();
+                UsuarioRepositorio userRepo = new UsuarioRepositorio();
                 int filasAfectadas = userRepo.Registro(userNew);
 
                 if (filasAfectadas != 0)
@@ -238,21 +244,24 @@ namespace WebApiUdApp.Services
                     Mensaje = "El correo no está registrado"
                 };
             }
-
+            if (UsuarioSuspendido(loginRequest.Email))
+            {
+                return new LoginResponse
+                {
+                    Exito = false,
+                    Mensaje = "La cuenta de este correo esta suspendida"
+                };
+            }
             Argon2Encryptation encriptador = new Argon2Encryptation();
             string contrasenaEncriptada = encriptador.EncriptarContrasenaArgon2(loginRequest.Contrasena);
 
-            UserRepositorio userRepo = new UserRepositorio();
+            UsuarioRepositorio userRepo = new UsuarioRepositorio();
             bool inicioSesionExitoso = userRepo.IniciarSesion(loginRequest.Email, contrasenaEncriptada);
 
             if (inicioSesionExitoso)
             {
-                UserDto usuario = new UserDto
-                {
-                    IdUsuario = userRepo.ObtenerIdUsuario(loginRequest.Email, contrasenaEncriptada),
-                    IdRol = userRepo.ObtenerIdRolUsuario(loginRequest.Email, contrasenaEncriptada),
-                    Email = loginRequest.Email
-                };
+                UserDto usuario = new UserDto();
+                usuario = _userRepo.GetUsuarioById(userRepo.ObtenerIdUsuario(loginRequest.Email, contrasenaEncriptada));
 
                 return new LoginResponse
                 {

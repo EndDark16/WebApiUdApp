@@ -2,16 +2,24 @@
 using System.Threading.Tasks;
 using WebApiUdApp.Utilities;
 using WebApiUdApp.Repositories;
+using WebApiUdApp.Dtos;
+using DinkToPdf.Contracts;
 
 namespace WebApiUdApp.Services
 {
     public class ReporteService
     {
-        private readonly EnviarCorreoConPDF _enviarCorreoConPDF;
+        private readonly IConverter _pdfConverter;
+        private readonly SmtpCorreos _correo;
+        private readonly ReporteRepositorio _reportesRepositorio;
+        private readonly GenerarHtmlString _generarHtmlString;
 
-        public ReporteService(EnviarCorreoConPDF enviarCorreoConPDF)
+        public ReporteService(GenerarHtmlString generarHtmlString, IConverter pdfConverter, SmtpCorreos correo, ReporteRepositorio reportesRepositorio)
         {
-            _enviarCorreoConPDF = enviarCorreoConPDF;
+            _pdfConverter = pdfConverter;
+            _correo = correo;
+            _reportesRepositorio = reportesRepositorio;
+            _generarHtmlString = generarHtmlString;
         }
 
         public async Task EnviarCorreoReporteAsync(string token)
@@ -20,8 +28,93 @@ namespace WebApiUdApp.Services
             int idUsuario = ObtenerIdUsuarioDesdeToken(token);
             string destinatario = reporteRepositorio.ObtenerCorreoPorId(idUsuario);
             // Llama al método CorreoReporte de EnviarCorreoConPDF
-            await _enviarCorreoConPDF.CorreoReporte(destinatario);
+            try
+            {
 
+                //destinatario = "andresfelipe16200411@gmail.com"; // Para pruebas
+                string asunto = $"Reporte de Publicaciones Reportadas - UdApp";
+                string body = "Adjunto se encuentra el reporte en formato PDF.";
+                string nombrePDF = "PublicacionesReportadas";
+
+                // Obtener los datos de reportes
+                List<ReporteDto> reportesDto = _reportesRepositorio.ObtenerPublicacionesReportadas();
+
+                // Generar el HTML para el PDF
+                string htmlContent = _generarHtmlString.GenerateHtmlReporteReportadas(reportesDto);
+
+                // Convertir HTML a PDF usando GenerarPDF
+                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
+
+                // Enviar el correo con el PDF adjunto
+                await _correo.EnviarCorreoConPDFAdjunto(destinatario, asunto, body, pdfBytes, nombrePDF);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al enviar correo: " + ex.Message);
+            }
+
+        }
+        public async Task EnviarCorreoPopularesAsync(string token)
+        {
+            try
+            {
+                ReporteRepositorio reporteRepositorio = new ReporteRepositorio();
+                int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+                string destinatario = reporteRepositorio.ObtenerCorreoPorId(idUsuario);
+                //destinatario = "andresfelipe16200411@gmail.com"; // Para pruebas
+                string asunto = $"Reporte de publicaciones mas Likeadas - UdApp";
+                string body = "Adjunto se encuentra el reporte en formato PDF.";
+                string nombrePDF = "PublicacionesMasLikeadas";
+                PublicacionesRepositorio _publicacionesRepositorio = new PublicacionesRepositorio();
+                // Obtener los datos de reportes
+                List<PublicacionDto> publicacionesDto = _publicacionesRepositorio.ObtenerPublicacionesOrdenadasPorLikes();
+
+                // Generar el HTML para el PDF
+                string htmlContent = _generarHtmlString.GenerateHtmlReporteLikeadas(publicacionesDto);
+
+                // Convertir HTML a PDF usando GenerarPDF
+                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
+
+                // Enviar el correo con el PDF adjunto
+                await _correo.EnviarCorreoConPDFAdjunto(destinatario, asunto, body, pdfBytes, nombrePDF);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al enviar correo: " + ex.Message);
+            }
+
+        }
+        public async Task EnviarCorreoUsuariosSuspendidosAsync(string token)
+        {
+            try
+            {
+                ReporteRepositorio reporteRepositorio = new ReporteRepositorio();
+                int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+                string destinatario = reporteRepositorio.ObtenerCorreoPorId(idUsuario);
+                //destinatario = "andresfelipe16200411@gmail.com"; // Para pruebas
+                string asunto = $"Reporte de publicaciones mas Likeadas - UdApp";
+                string body = "Adjunto se encuentra el reporte en formato PDF.";
+                string nombrePDF = "PublicacionesMasLikeadas";
+                PublicacionesRepositorio _publicacionesRepositorio = new PublicacionesRepositorio();
+                // Obtener los datos de reportes
+                List<PublicacionDto> publicacionesDto = _publicacionesRepositorio.ObtenerPublicacionesOrdenadasPorLikes();
+
+                // Generar el HTML para el PDF
+                string htmlContent = _generarHtmlString.GenerateHtmlReporteLikeadas(publicacionesDto);
+
+                // Convertir HTML a PDF usando GenerarPDF
+                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
+
+                // Enviar el correo con el PDF adjunto
+                await _correo.EnviarCorreoConPDFAdjunto(destinatario, asunto, body, pdfBytes, nombrePDF);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al enviar correo: " + ex.Message);
+            }
         }
         private int ObtenerIdUsuarioDesdeToken(string token)
         {
