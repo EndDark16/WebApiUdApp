@@ -38,6 +38,15 @@ namespace WebApiUdApp.Controllers
                 // Generar token JWT
                 string token = _usuarioServicio.GenerarToken(respuesta.Usuario.IdUsuario, respuesta.Usuario.NombreRol);
 
+                // Configurar la cookie para almacenar el token
+                Response.Cookies.Append("AuthToken", token, new CookieOptions
+                {
+                    HttpOnly = true, // Hace que la cookie no sea accesible desde JavaScript (seguridad adicional)
+                    Secure = true,   // Asegura que la cookie solo se envíe en conexiones HTTPS
+                    SameSite = SameSiteMode.Strict, // Evita el envío de la cookie en solicitudes cross-site
+                    Expires = DateTime.UtcNow.AddHours(1) // Establece la expiración de la cookie
+                });
+
                 return Ok(new
                 {
                     Exito = true,
@@ -53,11 +62,8 @@ namespace WebApiUdApp.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new
-                {
-                    Exito = false,
-                    Mensaje = "Error en el servidor: " + ex.Message
-                });
+                // Manejo de errores (log o detalles adicionales según corresponda)
+                return StatusCode(500, "Error en el servidor: " + ex.Message);
             }
         }
         // POST: api/Usuario/Registro
