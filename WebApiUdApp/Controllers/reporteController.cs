@@ -16,14 +16,29 @@ namespace WebApiUdApp.Controllers
             _reporteService = reporteService;
         }
 
-        [HttpPost("enviar-reporte")]
-        [Authorize]
-        public async Task<IActionResult> EnviarReporte([FromHeader] string Authorization)
+        [HttpPost("enviar-reporte-reportadas")]
+        [Authorize(Roles = "Moderador")]
+        public async Task<IActionResult> EnviarReporteReportadas([FromHeader] string Authorization)
         {
             try
             {
                 string token = Authorization.Replace("Bearer ", "");
                 await _reporteService.EnviarCorreoReporteAsync(token);
+                return Ok(new { message = "Reporte enviado exitosamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al enviar el reporte.", error = ex.Message });
+            }
+        }
+        [HttpPost("enviar-reporte-likeadas")]
+        [Authorize(Roles = "Moderador")]
+        public async Task<IActionResult> EnviarReporteLikeadas([FromHeader] string Authorization)
+        {
+            try
+            {
+                string token = Authorization.Replace("Bearer ", "");
+                await _reporteService.EnviarCorreoPopularesAsync(token);
                 return Ok(new { message = "Reporte enviado exitosamente." });
             }
             catch (Exception ex)
