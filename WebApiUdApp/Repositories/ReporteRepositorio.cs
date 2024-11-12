@@ -57,6 +57,46 @@ namespace WebApiUdApp.Repositories
                _dbConnection.CerrarConexion();
             }
         }
+        public List<ReporteUsuariosDto> ObtenerUsuariosRegistradosUltimos30Dias()
+        {
+            try
+            {
+                _dbConnection.AbrirConexion();
+
+                // Crear el comando para ejecutar el procedimiento almacenado
+                SqlCommand command = new SqlCommand("sp_ContarUsuariosUltimos30Dias", _dbConnection.Connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Ejecutar el lector de datos
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Crear la lista para almacenar los resultados
+                List<ReporteUsuariosDto> reporteUsuarios = new List<ReporteUsuariosDto>();
+
+                while (reader.Read())
+                {
+                    // Crear el objeto ReporteUsuariosDto y asignar los valores del lector
+                    ReporteUsuariosDto reporte = new ReporteUsuariosDto
+                    {
+                        Fecha = reader.GetDateTime("Fecha"),
+                        CantidadUsuarios = reader.GetInt32("CantidadUsuarios")
+                    };
+                    reporteUsuarios.Add(reporte);
+                }
+
+                reader.Close();
+                return reporteUsuarios;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el reporte de usuarios registrados en los últimos 30 días: " + ex.Message);
+                return new List<ReporteUsuariosDto>();
+            }
+            finally
+            {
+                _dbConnection.CerrarConexion();
+            }
+        }
         public string ObtenerCorreoPorId(int idUsuario)
         {
             try
@@ -82,6 +122,7 @@ namespace WebApiUdApp.Repositories
             {
                 _dbConnection.CerrarConexion();
             }
+
         }
     }
 }

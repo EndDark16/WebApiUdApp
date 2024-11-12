@@ -20,7 +20,7 @@ namespace WebApiUdApp.Repositories
             _dbConnection = new DatabaseConnection();
         }
         
-        public UserDto GetUsuarioById(int idUsuario)
+        public UsuarioDto GetUsuarioById(int idUsuario)
         {
             try
             {
@@ -44,18 +44,18 @@ namespace WebApiUdApp.Repositories
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    return new UserDto
+                    return new UsuarioDto
                     {
                         IdUsuario = reader.GetInt32("idUsuario"),
                         Cedula = reader["cedulaUsuario"].ToString(),
-                        Nombre = reader["nombreUsuario"].ToString(),
+                        NombreUsuario = reader["nombreUsuario"].ToString(),
                         Apellido  = reader["apellidoUsuario"].ToString(),
                         Telefono = reader["telefono"].ToString(),
                         Direccion = reader["direccion"].ToString(),
                         Email = reader["email"].ToString(),
                         IdRol = reader.GetInt32("fk_IdRol"),
                         NombreRol = reader.GetString("nombreRol"),
-                        EstadoSuspension = reader.IsDBNull("estadoSuspension") ? null : reader.GetBoolean("estadoSuspension")
+                        EstadoSuspension = reader.GetBoolean("estadoSuspension")
                     };
                 }
 
@@ -72,7 +72,7 @@ namespace WebApiUdApp.Repositories
             }
         }
 
-        public bool UpdateUsuario(int idUsuario, UserDto usuarioDto)
+        public bool UpdateUsuario(int idUsuario, UsuarioDto usuarioDto)
         {
             try
             {
@@ -94,14 +94,14 @@ namespace WebApiUdApp.Repositories
 
                 SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
                 command.Parameters.AddWithValue("@CedulaUsuario", usuarioDto.Cedula);
-                command.Parameters.AddWithValue("@NombreUsuario", usuarioDto.Nombre);
+                command.Parameters.AddWithValue("@NombreUsuario", usuarioDto.NombreUsuario);
                 command.Parameters.AddWithValue("@ApellidoUsuario", usuarioDto.Apellido);
                 command.Parameters.AddWithValue("@Telefono", usuarioDto.Telefono);
                 command.Parameters.AddWithValue("@Direccion", usuarioDto.Direccion);
                 command.Parameters.AddWithValue("@Email", usuarioDto.Email);
                 command.Parameters.AddWithValue("@Contrasena", usuarioDto.Contrasena);
                 command.Parameters.AddWithValue("@IdRol", usuarioDto.IdRol);
-                command.Parameters.AddWithValue("@EstadoSuspension", usuarioDto.EstadoSuspension ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("@EstadoSuspension", usuarioDto.EstadoSuspension);
                 command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
                 return command.ExecuteNonQuery() > 0;
@@ -134,7 +134,7 @@ namespace WebApiUdApp.Repositories
             }
         }
 
-        public int Registro(UserDto userNuevo, bool esInsercion = true)
+        public int Registro(UsuarioDto userNuevo, bool esInsercion = true)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace WebApiUdApp.Repositories
                 // Crear comando SQL con parámetros
                 SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
                 command.Parameters.AddWithValue("@Cedula", userNuevo.Cedula);
-                command.Parameters.AddWithValue("@Nombre", userNuevo.Nombre);
+                command.Parameters.AddWithValue("@Nombre", userNuevo.NombreUsuario);
                 command.Parameters.AddWithValue("@Apellido", userNuevo.Apellido);
                 command.Parameters.AddWithValue("@Telefono", userNuevo.Telefono);
                 command.Parameters.AddWithValue("@Direccion", userNuevo.Direccion);
@@ -304,7 +304,7 @@ namespace WebApiUdApp.Repositories
         }
 
 
-        public bool ActualizarDatosUsuario(UserDto usuarioActualizado)
+        public bool ActualizarDatosUsuario(UsuarioDto usuarioActualizado)
         {
             try
             {
@@ -319,7 +319,7 @@ namespace WebApiUdApp.Repositories
 
                 _dbConnection.AbrirConexion();
                 SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
-                command.Parameters.AddWithValue("@Nombre", usuarioActualizado.Nombre);
+                command.Parameters.AddWithValue("@Nombre", usuarioActualizado.NombreUsuario);
                 command.Parameters.AddWithValue("@Apellido", usuarioActualizado.Apellido);
                 command.Parameters.AddWithValue("@Telefono", usuarioActualizado.Telefono);
                 command.Parameters.AddWithValue("@Direccion", usuarioActualizado.Direccion);
@@ -340,9 +340,9 @@ namespace WebApiUdApp.Repositories
 
         /*      Funciones para el administrador     */
 
-        public List<UserDto> ObtenerUsuarios()
+        public List<UsuarioDto> ObtenerUsuarios()
         {
-            List<UserDto> usuarios = new List<UserDto>();
+            List<UsuarioDto> usuarios = new List<UsuarioDto>();
             try
             {
                 _dbConnection.AbrirConexion();
@@ -354,10 +354,10 @@ namespace WebApiUdApp.Repositories
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    UserDto usuario = new UserDto
+                    UsuarioDto usuario = new UsuarioDto
                     {
                         IdUsuario = Convert.ToInt32(reader["idUsuario"]),
-                        Nombre = reader["nombreUsuario"].ToString(),
+                        NombreUsuario = reader["nombreUsuario"].ToString(),
                         Apellido = reader["apellidoUsuario"].ToString(),
                         Email = reader["email"].ToString(),
                         IdRol = Convert.ToInt32(reader["fk_IdRol"]),
