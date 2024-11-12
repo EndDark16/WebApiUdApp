@@ -19,6 +19,8 @@ builder.Services.AddScoped<ReporteService>();
 builder.Services.AddScoped<ReporteRepositorio>();
 builder.Services.AddScoped<ModeradorService>();
 builder.Services.AddScoped<ModeradorRepositorio>();
+builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<AdminRepositorio>();
 builder.Services.AddTransient<SmtpCorreos>();
 builder.Services.AddTransient<GenerarHtmlString>();
 

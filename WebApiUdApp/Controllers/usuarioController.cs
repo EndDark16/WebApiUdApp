@@ -72,10 +72,10 @@ namespace WebApiUdApp.Controllers
         {
             try
             {
-                var errores = _usuarioServicio.ComprobarNuevoRegistro(new UserDto
+                var errores = _usuarioServicio.ComprobarNuevoRegistro(new UsuarioDto
                 {
                     Cedula = registroDto.Cedula,
-                    Nombre = registroDto.Nombre,
+                    NombreUsuario = registroDto.Nombre,
                     Apellido = registroDto.Apellido,
                     Telefono = registroDto.Telefono,
                     Direccion = registroDto.Direccion,
@@ -122,7 +122,7 @@ namespace WebApiUdApp.Controllers
 
         [HttpPut("Actualizar-usuario")]
         [Authorize]
-        public IActionResult UpdateUsuario([FromHeader] string Authorization, [FromBody] UserDto usuarioDto)
+        public IActionResult UpdateUsuario([FromHeader] string Authorization, [FromBody] UsuarioDto usuarioDto)
         {
             try
             {
