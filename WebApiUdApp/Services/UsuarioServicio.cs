@@ -56,14 +56,14 @@ namespace WebApiUdApp.Services
         }
 
         // Método para obtener un usuario por su id (extraído del token)
-        public UserDto? ObtenerUsuario(string token)
+        public UsuarioDto? ObtenerUsuario(string token)
         {
             int idUsuario = ObtenerIdUsuarioDesdeToken(token);
             return _userRepo.GetUsuarioById(idUsuario);
         }
 
         // Método para actualizar un usuario por su id (extraído del token)
-        public ActualizarUsuarioResponse ActualizarUsuario(string token, UserDto usuarioDto)
+        public ActualizarUsuarioResponse ActualizarUsuario(string token, UsuarioDto usuarioDto)
         {
             int idUsuario = ObtenerIdUsuarioDesdeToken(token); // Extraemos el idUsuario desde el token
 
@@ -135,11 +135,11 @@ namespace WebApiUdApp.Services
         }
         
         // Método para comprobar los errores en el registro
-        public string ComprobarNuevoRegistro(UserDto registroNuevo)
+        public string ComprobarNuevoRegistro(UsuarioDto registroNuevo)
         {
             List<string> errores = new List<string>();
 
-            if (EsNulo(registroNuevo.Cedula) || EsNulo(registroNuevo.Nombre) ||
+            if (EsNulo(registroNuevo.Cedula) || EsNulo(registroNuevo.NombreUsuario) ||
                 EsNulo(registroNuevo.Apellido) || EsNulo(registroNuevo.Telefono) ||
                 EsNulo(registroNuevo.Email) || EsNulo(registroNuevo.Contrasena))
             {
@@ -148,7 +148,7 @@ namespace WebApiUdApp.Services
             else
             {
                 if (!EsNumero(registroNuevo.Cedula)) errores.Add("La cédula debe contener solo números.");
-                if (!EsTextoValido(registroNuevo.Nombre)) errores.Add("El nombre no debe contener números ni caracteres especiales.");
+                if (!EsTextoValido(registroNuevo.NombreUsuario)) errores.Add("El nombre no debe contener números ni caracteres especiales.");
                 if (!EsTextoValido(registroNuevo.Apellido)) errores.Add("El apellido no debe contener números ni caracteres especiales.");
                 if (!EsNumero(registroNuevo.Telefono)) errores.Add("El teléfono debe contener solo números.");
                 if (!registroNuevo.Email.Contains("@ucundinamarca.edu.co")) errores.Add("El email debe contener \"@ucundinamarca.edu.co\".");
@@ -162,10 +162,10 @@ namespace WebApiUdApp.Services
         // Registro de usuario
         public RegisterResponse RegistrarUsuario(RegisterRequest registroNuevo)
         {
-            var errores = ComprobarNuevoRegistro(new UserDto
+            var errores = ComprobarNuevoRegistro(new UsuarioDto
             {
                 Cedula = registroNuevo.Cedula,
-                Nombre = registroNuevo.Nombre,
+                NombreUsuario = registroNuevo.Nombre,
                 Apellido = registroNuevo.Apellido,
                 Telefono = registroNuevo.Telefono,
                 Direccion = registroNuevo.Direccion,
@@ -186,10 +186,10 @@ namespace WebApiUdApp.Services
             Argon2Encryptation encriptador = new Argon2Encryptation();
             string contrasenaEncriptada = encriptador.EncriptarContrasenaArgon2(registroNuevo.Contrasena);
 
-            UserDto userNew = new UserDto
+            UsuarioDto userNew = new UsuarioDto
             {
                 Cedula = registroNuevo.Cedula,
-                Nombre = registroNuevo.Nombre,
+                NombreUsuario = registroNuevo.Nombre,
                 Apellido = registroNuevo.Apellido,
                 Telefono = registroNuevo.Telefono,
                 Direccion = registroNuevo.Direccion,
@@ -206,7 +206,7 @@ namespace WebApiUdApp.Services
                 {
                     // Simular envío de correo al registrar
                     EnviarCorreo correo = new EnviarCorreo();
-                    _ = correo.CorreoInicioSesion(userNew.Email, userNew.Nombre);
+                    _ = correo.CorreoInicioSesion(userNew.Email, userNew.NombreUsuario);
 
                     return new RegisterResponse
                     {
@@ -260,7 +260,7 @@ namespace WebApiUdApp.Services
 
             if (inicioSesionExitoso)
             {
-                UserDto usuario = new UserDto();
+                UsuarioDto usuario = new UsuarioDto();
                 usuario = _userRepo.GetUsuarioById(userRepo.ObtenerIdUsuario(loginRequest.Email, contrasenaEncriptada));
 
                 return new LoginResponse

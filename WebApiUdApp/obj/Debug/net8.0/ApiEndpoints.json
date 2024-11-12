@@ -1,5 +1,52 @@
 [
   {
+    "ContainingType": "WebApiUdApp.Controllers.AdminController",
+    "Method": "ObtenerUsuarios",
+    "RelativePath": "api/admin/usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.AdminController",
+    "Method": "CambiarEstadoSuspension",
+    "RelativePath": "api/admin/usuarios/{idUsuario}/cambiar-estado-suspension",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.AdminController",
+    "Method": "CambiarRolUsuario",
+    "RelativePath": "api/admin/usuarios/{idUsuario}/cambiar-rol",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nuevoRol",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
     "Method": "ActualizarComentario",
     "RelativePath": "api/Comentario/actualizar-comentario",
@@ -311,6 +358,42 @@
   },
   {
     "ContainingType": "WebApiUdApp.Controllers.ReporteController",
+    "Method": "DescargarReportePublicacionesPopulares",
+    "RelativePath": "api/Reporte/descargar-reporte-publicaciones-populares",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ReporteController",
+    "Method": "DescargarReportePublicacionesReportadas",
+    "RelativePath": "api/Reporte/descargar-reporte-publicaciones-reportadas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ReporteController",
+    "Method": "DescargarReporteUsuarios",
+    "RelativePath": "api/Reporte/descargar-reporte-usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.ReporteController",
     "Method": "EnviarReporteLikeadas",
     "RelativePath": "api/Reporte/enviar-reporte-likeadas",
     "HttpMethod": "POST",
@@ -342,6 +425,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApiUdApp.Controllers.ReporteController",
+    "Method": "EnviarReporteUsuarios",
+    "RelativePath": "api/Reporte/enviar-reporte-usuarios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Authorization",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApiUdApp.Controllers.UsuarioController",
     "Method": "UpdateUsuario",
     "RelativePath": "api/Usuario/Actualizar-usuario",
@@ -356,7 +455,7 @@
       },
       {
         "Name": "usuarioDto",
-        "Type": "WebApiUdApp.Dtos.UserDto",
+        "Type": "WebApiUdApp.Dtos.UsuarioDto",
         "IsRequired": true
       }
     ],

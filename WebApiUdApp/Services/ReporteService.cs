@@ -86,23 +86,25 @@ namespace WebApiUdApp.Services
             }
 
         }
-        public async Task EnviarCorreoUsuariosSuspendidosAsync(string token)
+        public async Task EnviarCorreoRegistrosAsync(string token)
         {
+            ReporteRepositorio reporteRepositorio = new ReporteRepositorio();
+            int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+            string destinatario = reporteRepositorio.ObtenerCorreoPorId(idUsuario);
+            // Llama al método CorreoReporte de EnviarCorreoConPDF
             try
             {
-                ReporteRepositorio reporteRepositorio = new ReporteRepositorio();
-                int idUsuario = ObtenerIdUsuarioDesdeToken(token);
-                string destinatario = reporteRepositorio.ObtenerCorreoPorId(idUsuario);
+
                 //destinatario = "andresfelipe16200411@gmail.com"; // Para pruebas
-                string asunto = $"Reporte de publicaciones mas Likeadas - UdApp";
+                string asunto = $"Reporte de Usuarios registrados en los ultimos 30 días - UdApp";
                 string body = "Adjunto se encuentra el reporte en formato PDF.";
-                string nombrePDF = "PublicacionesMasLikeadas";
-                PublicacionesRepositorio _publicacionesRepositorio = new PublicacionesRepositorio();
+                string nombrePDF = "ReporteUsuarios";
+
                 // Obtener los datos de reportes
-                List<PublicacionDto> publicacionesDto = _publicacionesRepositorio.ObtenerPublicacionesOrdenadasPorLikes();
+                List<ReporteUsuariosDto> reporteUsuariosDto = _reportesRepositorio.ObtenerUsuariosRegistradosUltimos30Dias();
 
                 // Generar el HTML para el PDF
-                string htmlContent = _generarHtmlString.GenerateHtmlReporteLikeadas(publicacionesDto);
+                string htmlContent = _generarHtmlString.GenerateHtmlReporteUsuariosRegistradosConImagen(reporteUsuariosDto);
 
                 // Convertir HTML a PDF usando GenerarPDF
                 GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
@@ -114,6 +116,58 @@ namespace WebApiUdApp.Services
             catch (Exception ex)
             {
                 Console.WriteLine("Error al enviar correo: " + ex.Message);
+            }
+
+        }
+        public byte[] GenerarReportePublicacionesReportadas()
+        {
+            // Obtener los datos de reportes
+            List<ReporteDto> reportesDto = _reportesRepositorio.ObtenerPublicacionesReportadas();
+
+            // Generar el HTML para el PDF
+            string htmlContent = _generarHtmlString.GenerateHtmlReporteReportadas(reportesDto);
+
+            // Convertir HTML a PDF
+            GenerarPDF generadorPDF = new GenerarPDF(_pdfConverter);
+            return generadorPDF.GeneratePdfFromHtml(htmlContent);
+        }
+
+        public byte[] GenerarReportePublicacionesPopulares()
+        {
+            PublicacionesRepositorio _publicacionesRepositorio = new PublicacionesRepositorio();
+            // Obtener los datos de reportes
+            List<PublicacionDto> publicacionesDto = _publicacionesRepositorio.ObtenerPublicacionesOrdenadasPorLikes();
+
+            // Generar el HTML para el PDF
+            string htmlContent = _generarHtmlString.GenerateHtmlReporteLikeadas(publicacionesDto);
+
+            // Convertir HTML a PDF
+            GenerarPDF generadorPDF = new GenerarPDF(_pdfConverter);
+            return generadorPDF.GeneratePdfFromHtml(htmlContent);
+        }
+        public byte[] GenerarReporteUsuariosPdf(string token)
+        {
+            try
+            {
+                ReporteRepositorio reporteRepositorio = new ReporteRepositorio();
+                int idUsuario = ObtenerIdUsuarioDesdeToken(token);
+
+                // Obtener los datos de reportes
+                List<ReporteUsuariosDto> reporteUsuariosDto = _reportesRepositorio.ObtenerUsuariosRegistradosUltimos30Dias();
+
+                // Generar el HTML para el PDF
+                string htmlContent = _generarHtmlString.GenerateHtmlReporteUsuariosRegistradosConImagen(reporteUsuariosDto);
+
+                // Convertir HTML a PDF usando GenerarPDF
+                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
+
+                return pdfBytes;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al generar el PDF: " + ex.Message);
+                return null;
             }
         }
         private int ObtenerIdUsuarioDesdeToken(string token)
@@ -129,5 +183,6 @@ namespace WebApiUdApp.Services
 
             return int.Parse(sid);
         }
+
     }
 }
