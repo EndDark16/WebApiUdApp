@@ -101,7 +101,7 @@ namespace WebApiUdApp.Repositories
             try
             {
                 _dbConnection.AbrirConexion();
-                string consulta = "SELECT * FROM COMENTARIO WHERE idComentario = @IdComentario";
+                string consulta = "SELECT [idComentario],[contenido],[fechaComentario],[fk_idUsuarioComentador],[fk_idPublicacion] FROM COMENTARIO WHERE idComentario = @IdComentario";
                 SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
                 command.Parameters.AddWithValue("@IdComentario", idComentario);
 
@@ -206,7 +206,7 @@ namespace WebApiUdApp.Repositories
             {
                 _dbConnection.AbrirConexion();
 
-                string query = "SELECT * FROM COMENTARIO WHERE fk_idUsuarioComentador = @IdUsuario";
+                string query = "SELECT [idComentario],[contenido],[fechaComentario],[fk_idUsuarioComentador],[fk_idPublicacion] FROM COMENTARIO WHERE fk_idUsuarioComentador = @IdUsuario";
                 SqlCommand command = new SqlCommand(query, _dbConnection.Connection);
                 command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 

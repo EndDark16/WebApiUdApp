@@ -98,18 +98,24 @@ namespace WebApiUdApp.Controllers
 
         [HttpGet("descargar-reporte-usuarios")]
         [Authorize(Roles = "Gerente")]
-        public IActionResult DescargarReporteUsuarios([FromHeader] string Authorization)
+        public IActionResult DescargarReporteUsuarios()
         {
             try
             {
-                string token = Authorization.Replace("Bearer ", "");
-                byte[] pdfBytes = _reporteService.GenerarReporteUsuariosPdf(token);
+                byte[] pdfBytes = _reporteService.GenerarReporteUsuariosPdf();
+
+                if (pdfBytes == null || pdfBytes.Length == 0)
+                {
+                    // Mensaje específico en caso de fallo en la generación del PDF
+                    return StatusCode(500, new { message = "Error al generar el reporte PDF de usuarios." });
+                }
 
                 return File(pdfBytes, "application/pdf", "ReporteUsuariosRegistrados.pdf");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error al descargar el reporte.", error = ex.Message });
+                // Retornar mensaje detallado de error
+                return StatusCode(500, new { message = "Error inesperado al descargar el reporte.", error = ex.Message });
             }
         }
     }

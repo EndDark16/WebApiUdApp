@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Diagnostics;
 using WebApiUdApp.Dtos;
 using WebApiUdApp.Dtos.Request.PublicacionesRequest;
@@ -20,66 +21,56 @@ namespace WebApiUdApp.Services
             try
             {
                 dbConnection.AbrirConexion();
-
-                // Consulta SQL para insertar una nueva publicación sin comentarios ni likes inicialmente
-                string consulta = @"INSERT INTO PUBLICACION (titulo, fechaPublicacion, fk_idUsuarioPublicador, comentarios, likes)
-                            VALUES (@Titulo, @FechaPublicacion, @IdUsuarioPublicador, 0, 0)";
-
-                SqlCommand command = new SqlCommand(consulta, dbConnection.Connection);
-                // Utilizar parámetros parametrizados para prevenir SQL Injection
-                command.Parameters.AddWithValue("@Titulo", titulo);
-                command.Parameters.AddWithValue("@FechaPublicacion", fechaPublicacion);
-                command.Parameters.AddWithValue("@IdUsuarioPublicador", idUsuarioPublicador);
-
-                command.ExecuteNonQuery();
+                using (SqlCommand command = new SqlCommand("sp_CrearPublicacion", dbConnection.Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Titulo", titulo);
+                    command.Parameters.AddWithValue("@FechaPublicacion", fechaPublicacion);
+                    command.Parameters.AddWithValue("@IdUsuarioPublicador", idUsuarioPublicador);
+                    command.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
-                // Manejar el error de alguna manera
-                Console.WriteLine("Error al insertar la nueva publicación: " + ex.Message);
+                Console.WriteLine("Error al crear la publicación: " + ex.Message);
             }
             finally
             {
                 dbConnection.CerrarConexion();
             }
         }
+
 
         public PublicacionDto ObtenerPublicacionPorId(int id)
         {
             try
             {
                 dbConnection.AbrirConexion();
-                string consulta = "SELECT * FROM PUBLICACION WHERE idPublicacion = @Id";
-                SqlCommand command = new SqlCommand(consulta, dbConnection.Connection);
-                command.Parameters.AddWithValue("@Id", id);
-
-                SqlDataReader reader = command.ExecuteReader();
-                if (!reader.HasRows)
+                using (SqlCommand command = new SqlCommand("sp_ObtenerPublicacionPorId", dbConnection.Connection))
                 {
-                    Debug.WriteLine("No se encontraron registros para el id proporcionado.");
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Id", id);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        return new PublicacionDto
+                        {
+                            IdPublicacion = reader.GetInt32("idPublicacion"),
+                            Titulo = reader.GetString("titulo"),
+                            Contenido = reader["contenido"] as string,
+                            FechaPublicacion = reader.GetDateTime("fechaPublicacion"),
+                            IdUsuarioPublicador = reader.GetInt32("fk_idUsuarioPublicador"),
+                            NumeroLikes = reader.GetInt32("likes"),
+                            NumeroComentarios = reader.GetInt32("comentarios"),
+                            Reportada = reader.GetBoolean("reportada")
+                        };
+                    }
                     return null;
                 }
-
-
-                if (reader.Read())
-                {
-                    return new PublicacionDto
-                    {
-                        IdPublicacion = reader.GetInt32(0),
-                        Titulo = reader.GetString(1),
-                        Contenido = reader.IsDBNull(2) ? null : reader.GetString(2),
-                        FechaPublicacion = reader.GetDateTime(3),
-                        IdUsuarioPublicador = reader.GetInt32(4),
-                        NumeroLikes = reader.GetInt32(5),
-                        NumeroComentarios = reader.GetInt32(6),
-                        Reportada = reader.GetBoolean(7)
-                    };
-                }
-                return null;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error al obtener la publicación: " + ex.Message);
+                Console.WriteLine("Error al obtener la publicación: " + ex.Message);
                 return null;
             }
             finally
@@ -87,21 +78,19 @@ namespace WebApiUdApp.Services
                 dbConnection.CerrarConexion();
             }
         }
-
         public bool ActualizarPublicacion(int idUsuario, ActualizarPublicacionRequest request)
         {
             try
             {
                 dbConnection.AbrirConexion();
-                string consulta = @"UPDATE PUBLICACION 
-                                SET titulo = @Titulo
-                                WHERE idPublicacion = @IdPublicacion AND fk_idUsuarioPublicador = @IdUsuario";
-                SqlCommand command = new SqlCommand(consulta, dbConnection.Connection);
-                command.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                command.Parameters.AddWithValue("@IdPublicacion", request.IdPublicacion);
-                command.Parameters.AddWithValue("@Titulo", request.Titulo);
-
-                return command.ExecuteNonQuery() > 0;
+                using (SqlCommand command = new SqlCommand("sp_ActualizarPublicacion", dbConnection.Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@IdPublicacion", request.IdPublicacion);
+                    command.Parameters.AddWithValue("@Titulo", request.Titulo);
+                    return command.ExecuteNonQuery() > 0;
+                }
             }
             catch (Exception ex)
             {
@@ -119,21 +108,22 @@ namespace WebApiUdApp.Services
             try
             {
                 dbConnection.AbrirConexion();
-                // Ahora eliminar la publicación
-                string consultaEliminarPublicacion = "DELETE FROM PUBLICACION WHERE idPublicacion = @IdPublicacion AND fk_idUsuarioPublicador = @IdUsuario";
-                SqlCommand command = new SqlCommand(consultaEliminarPublicacion, dbConnection.Connection);
-                command.Parameters.AddWithValue("@IdPublicacion", idPublicacion);
-                command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                using (SqlCommand command = new SqlCommand("sp_EliminarPublicacion", dbConnection.Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdPublicacion", idPublicacion);
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
-                // Eliminar las referencias en la tabla de reportes
-                string consultaEliminarReportes = "DELETE FROM REPORTE WHERE fk_idPublicacionReportada = @IdPublicacion";
-                SqlCommand commandEliminarReportes = new SqlCommand(consultaEliminarReportes, dbConnection.Connection);
-                commandEliminarReportes.Parameters.AddWithValue("@IdPublicacion", idPublicacion);
-                commandEliminarReportes.ExecuteNonQuery();
+                    // Parámetro de salida para recibir el resultado
+                    SqlParameter resultadoParam = new SqlParameter("@Resultado", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command.Parameters.Add(resultadoParam);
 
-                
-
-                return command.ExecuteNonQuery() > 0;
+                    command.ExecuteNonQuery();
+                    return (bool)resultadoParam.Value; // Devuelve true si se eliminó exitosamente
+                }
             }
             catch (Exception ex)
             {
@@ -155,11 +145,11 @@ namespace WebApiUdApp.Services
 
                 string consulta = @"
                     SELECT P.idPublicacion, P.fk_idUsuarioPublicador, P.titulo, ISNULL(P.contenido, '') AS contenido, P.fechaPublicacion, 
-                           U.nombreUsuario +' ' + U.apellidoUsuario AS nombreUsuarioPublicador,
+                           U.nombreUsuario +' ' + U.apellidoUsuario AS nombreUsuarioPublicador, reportada,
                            ISNULL(P.comentarios, 0) AS comentarios, ISNULL(P.likes, 0) AS likes,
 	   
                            CASE 
-                               WHEN EXISTS (SELECT 1 FROM Likes L WHERE L.fk_idPublicacion = P.idPublicacion AND L.fk_idUsuario = 1)
+                               WHEN EXISTS (SELECT 1 FROM Likes L WHERE L.fk_idPublicacion = P.idPublicacion AND L.fk_idUsuario = @idUsuario)
                                THEN CAST(1 AS BIT)
                                ELSE CAST(0 AS BIT)
                            END AS [Like]
@@ -180,15 +170,16 @@ namespace WebApiUdApp.Services
                 {
                     PublicacionDto publicacion = new PublicacionDto
                     {
-                        IdPublicacion = reader.GetInt32(0),
-                        IdUsuarioPublicador = reader.GetInt32(1),
-                        Titulo = reader.GetString(2),
-                        Contenido = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
-                        FechaPublicacion = reader.GetDateTime(4),
-                        NombreUsuario = reader.GetString(5),
-                        NumeroComentarios = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
-                        NumeroLikes = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
-                        Like = reader.GetBoolean(8) // Mapeando el valor del "like"
+                        IdPublicacion = reader.GetInt32("idPublicacion"),
+                        IdUsuarioPublicador = reader.GetInt32("fk_idUsuarioPublicador"),
+                        Titulo = reader.GetString("titulo"),
+                        Contenido = reader.IsDBNull("contenido") ? string.Empty : reader.GetString("contenido"),
+                        FechaPublicacion = reader.GetDateTime("fechaPublicacion"),
+                        NombreUsuario = reader.GetString("nombreUsuarioPublicador"),
+                        Reportada = reader.GetBoolean("reportada"),
+                        NumeroComentarios = reader.IsDBNull("comentarios") ? 0 : reader.GetInt32("comentarios"),
+                        NumeroLikes = reader.IsDBNull("likes") ? 0 : reader.GetInt32("likes"),
+                        Like = reader.GetBoolean("Like") // Mapeando el valor del "like"
                     };
 
                     publicaciones.Add(publicacion);
