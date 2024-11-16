@@ -47,6 +47,46 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebApiUdApp.Controllers.AutenticacionController",
+    "Method": "AdminRol",
+    "RelativePath": "api/Autenticacion/AdminRol",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.AutenticacionController",
+    "Method": "GeneralRol",
+    "RelativePath": "api/Autenticacion/GeneralRol",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.AutenticacionController",
+    "Method": "GerenteRol",
+    "RelativePath": "api/Autenticacion/GerenteRol",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiUdApp.Controllers.AutenticacionController",
+    "Method": "ModeradorRol",
+    "RelativePath": "api/Autenticacion/ModeradorRol",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApiUdApp.Controllers.ComentarioController",
     "Method": "ActualizarComentario",
     "RelativePath": "api/Comentario/actualizar-comentario",

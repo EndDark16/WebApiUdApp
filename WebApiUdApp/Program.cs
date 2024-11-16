@@ -35,7 +35,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
         policy.WithOrigins("https://localhost:44322", "https://localhost:7023",
-            "http://udapphosting-001-site1.ktempurl.com", "https://udapphosting-001-site1.ktempurl.com")
+            "http://udapphosting-001-site1.ktempurl.com", "https://udapphosting-001-site1.ktempurl.com",
+            "https://udappfront-001-site1.ltempurl.com", "https://webapiudapp.somee.com")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
