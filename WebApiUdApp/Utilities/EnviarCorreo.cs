@@ -1,5 +1,4 @@
-﻿using DinkToPdf.Contracts;
-using WebApiUdApp.Dtos;
+﻿using WebApiUdApp.Dtos;
 using WebApiUdApp.Repositories;
 using WebApiUdApp.Services;
 namespace WebApiUdApp.Utilities
@@ -12,7 +11,6 @@ namespace WebApiUdApp.Utilities
             {
                 //destinatario = "andresfelipe16200411@gmail.com"; // agregado para pruebas xd
                 string asunto = "Bienvenido a UdApp";
-                string imageUrl = "https://i.ibb.co/Kr5WhCp/Ud-App-sign.png"; // URL directa de la imagen
                 string body = $@"
                 <!DOCTYPE html>
 

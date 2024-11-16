@@ -1,13 +1,4 @@
-﻿using DinkToPdf;
-using DinkToPdf.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using WebApiUdApp.Dtos;
-using WebApiUdApp.Repositories;
-using WebApiUdApp.Services;
-
+﻿using WebApiUdApp.Dtos;
 namespace WebApiUdApp.Utilities
 {
     public class GenerarHtmlString
@@ -29,9 +20,11 @@ namespace WebApiUdApp.Utilities
                         }}
                         body {{
                             font-family: Arial, sans-serif;
+                            font-size: 12px;
                             line-height: 1.6;
                             background-color: #f4f4f4;
-                            margin: 0;
+                            margin: 20px;
+                            margin
                             padding: 0;
                             box-sizing: border-box;
                         }}
@@ -45,6 +38,7 @@ namespace WebApiUdApp.Utilities
                         h1 {{
                             color: #333;
                             text-align: center;
+                            font-size: 18px;
                         }}
 
                         h2 {{
@@ -65,6 +59,7 @@ namespace WebApiUdApp.Utilities
                         th, td {{
                             padding: 15px;
                             text-align: left;
+                            font-size: 12px;
                             border-bottom: 1px solid #ddd;
                         }}
 
@@ -85,6 +80,7 @@ namespace WebApiUdApp.Utilities
 
                         footer p {{
                             margin: 5px 0;
+                            font-size: 12px;
                         }}
                     </style>
                 </head>
@@ -158,9 +154,10 @@ namespace WebApiUdApp.Utilities
                         }
                         body {
                             font-family: Arial, sans-serif;
+                            font-size: 12px;
                             line-height: 1.6;
                             background-color: #f4f4f4;
-                            margin: 0;
+                            margin: 20px;
                             padding: 0;
                             box-sizing: border-box;
                         }
@@ -174,6 +171,7 @@ namespace WebApiUdApp.Utilities
                         h1 {
                             color: #333;
                             text-align: center;
+                            font-size: 18px;
                         }
 
                         h2 {
@@ -194,6 +192,7 @@ namespace WebApiUdApp.Utilities
                         th, td {
                             padding: 15px;
                             text-align: left;
+                            font-size: 12px;
                             border-bottom: 1px solid #ddd;
                         }
 
@@ -213,6 +212,7 @@ namespace WebApiUdApp.Utilities
                         }
 
                         footer p {
+                            font-size: 12px;
                             margin: 5px 0;
                         }
                     </style>
@@ -290,9 +290,11 @@ namespace WebApiUdApp.Utilities
                         }
                         body {
                             font-family: Arial, sans-serif;
+                            font-size: 12px;
                             line-height: 1.6;
                             background-color: #f4f4f4;
-                            margin: 0;
+                            margin: 20px;
+
                             padding: 0;
                             box-sizing: border-box;
                         }
@@ -304,6 +306,7 @@ namespace WebApiUdApp.Utilities
                         }
 
                         h1 {
+                            font-size: 18px;
                             color: #333;
                             text-align: center;
                         }
@@ -326,6 +329,7 @@ namespace WebApiUdApp.Utilities
                         th, td {
                             padding: 15px;
                             text-align: left;
+                            font-size: 12px;
                             border-bottom: 1px solid #ddd;
                         }
 
@@ -345,6 +349,7 @@ namespace WebApiUdApp.Utilities
                         }
 
                         footer p {
+                            font-size: 12px;
                             margin: 5px 0;
                         }
                     </style>

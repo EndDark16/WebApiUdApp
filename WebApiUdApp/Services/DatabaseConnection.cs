@@ -19,6 +19,7 @@ namespace WebApiUdApp.Services
         public DatabaseConnection()
         {
             string connectionString = $"Data Source={DataSource};Initial Catalog={InitialCatalog};Integrated Security={IntegratedSecurity}; Encrypt=True;Trust Server Certificate=True";
+            connectionString = "Data Source=SQL9001.site4now.net;Initial Catalog=db_aaf489_udappdb;User Id=db_aaf489_udappdb_admin;Password=UdApp2024";
             connection = new SqlConnection(connectionString);
         }
         public SqlConnection Connection // Agregar esta propiedad

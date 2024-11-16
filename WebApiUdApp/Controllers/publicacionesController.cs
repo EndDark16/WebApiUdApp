@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebApiUdApp.Dtos;
@@ -58,7 +59,10 @@ namespace WebApiUdApp.Controllers
                 var publicacion = _publicacionesService.ObtenerPublicacionPorId(id);
                 if (publicacion == null)
                 {
-                    return NotFound("Publicación no encontrada");
+                    return NotFound(new { 
+                        Exito = true,
+                        Mensaje = "Publicación no encontrada" 
+                    });
                 }
                 return Ok(publicacion);
             }
@@ -92,15 +96,27 @@ namespace WebApiUdApp.Controllers
             {
                 string token = Authorization.Replace("Bearer ", "");
                 bool eliminado = _publicacionesService.EliminarPublicacion(token, idPublicacion);
-                if (!eliminado)
+                    if (!eliminado)
                 {
-                    return StatusCode(500, "Error al eliminar la publicación");
+                    return StatusCode(500, new
+                    {
+                        Exito = false,
+                        Mensaje = "Error al eliminar la publicación"
+                    });
                 }
-                return Ok("Publicación eliminada con éxito");
+                return Ok(new
+                {
+                    Exito = true,
+                    Mensaje = "Publicacion eliminada con exito"
+                });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Error interno: " + ex.Message);
+                return StatusCode(500, new
+                {
+                    Exito = false,
+                    Mensaje = "Error al eliminar la publicación" + ex.Message
+                });
             }
         }
         [HttpPost("toggle-like")]
@@ -126,7 +142,10 @@ namespace WebApiUdApp.Controllers
                 var publicaciones = _publicacionesService.ObtenerPublicacionesRecientes(User);
                 if (!publicaciones.Any())
                 {
-                    return NotFound(new { message = "No se encontraron publicaciones para este usuario." });
+                    return Ok(new { 
+                        Exito = true,
+                        Mensaje = "No se encontraron publicaciones para este usuario." 
+                    });
                 }
                 return Ok(publicaciones);
             }

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "go9xkP1moWRKwYgVlOUFy8dCctqefPDQXDpmd2ljEL8=",
+  "Source": "WebApiUdApp",
+  "BasePath": "_content/WebApiUdApp",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

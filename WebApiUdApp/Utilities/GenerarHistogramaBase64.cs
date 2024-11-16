@@ -1,5 +1,4 @@
 ﻿using SkiaSharp;
-using System.IO;
 using WebApiUdApp.Dtos;
 
 namespace WebApiUdApp.Utilities
