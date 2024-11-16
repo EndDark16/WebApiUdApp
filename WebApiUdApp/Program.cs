@@ -74,7 +74,9 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "WebApiUdApp1",
         Version = "v1",
-        Description = "Esta API proporciona acceso a diversas funcionalidades para la pagina web de UdApp."
+        Description = "Esta API proporciona acceso a diversas funcionalidades para la página web de UdApp.  \r\n\r\n" +
+                        "<a href='https://github.com/EndDark16/WebApiUdApp/tree/d730ddbae29a22a68cd829aeea83f6181f06d5cf/Documentación' target='_blank'>Documentación</a>"
+
     });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
