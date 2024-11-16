@@ -1,5 +1,3 @@
-using DinkToPdf.Contracts;
-using DinkToPdf;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics;
@@ -23,18 +21,21 @@ builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<AdminRepositorio>();
 builder.Services.AddTransient<SmtpCorreos>();
 builder.Services.AddTransient<GenerarHtmlString>();
+builder.Services.AddScoped<DatabaseConnection>();
 
-// Registro del convertidor PDF
-builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
 builder.Services.AddControllers();
+
+// Registro de DatabaseConnection para inyección de dependencias
+
 
 // Configuración de CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        policy.WithOrigins("https://localhost:44322", "https://localhost:7023")
+        policy.WithOrigins("https://localhost:44322", "https://localhost:7023",
+            "http://udapphosting-001-site1.ktempurl.com", "https://udapphosting-001-site1.ktempurl.com")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -108,11 +109,13 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

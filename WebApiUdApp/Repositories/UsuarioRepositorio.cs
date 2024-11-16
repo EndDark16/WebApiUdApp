@@ -19,52 +19,44 @@ namespace WebApiUdApp.Repositories
         {
             _dbConnection = new DatabaseConnection();
         }
-        
+
         public UsuarioDto GetUsuarioById(int idUsuario)
         {
             try
             {
                 _dbConnection.AbrirConexion();
-                string consulta = @"SELECT U.[idUsuario]
-                                          ,U.[cedulaUsuario]
-                                          ,U.[nombreUsuario]
-                                          ,U.[apellidoUsuario]
-                                          ,U.[telefono]
-                                          ,U.[direccion]
-                                          ,U.[email]
-                                          ,U.[fk_idRol]
-										  ,R.[nombreRol]
-                                          ,U.[estadoSuspension]
-	                                      FROM USUARIO U
-										  INNER JOIN ROL R ON U.fk_idRol = R.idRol
-										  WHERE idUsuario = @IdUsuario";
-                SqlCommand command = new SqlCommand(consulta, _dbConnection.Connection);
-                command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                string spName = "dbo.sp_GetUsuarioById";
 
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
+                using (SqlCommand command = new SqlCommand(spName, _dbConnection.Connection))
                 {
-                    return new UsuarioDto
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
                     {
-                        IdUsuario = reader.GetInt32("idUsuario"),
-                        Cedula = reader["cedulaUsuario"].ToString(),
-                        NombreUsuario = reader["nombreUsuario"].ToString(),
-                        Apellido  = reader["apellidoUsuario"].ToString(),
-                        Telefono = reader["telefono"].ToString(),
-                        Direccion = reader["direccion"].ToString(),
-                        Email = reader["email"].ToString(),
-                        IdRol = reader.GetInt32("fk_IdRol"),
-                        NombreRol = reader.GetString("nombreRol"),
-                        EstadoSuspension = reader.GetBoolean("estadoSuspension")
-                    };
+                        return new UsuarioDto
+                        {
+                            IdUsuario = reader.GetInt32("idUsuario"),
+                            Cedula = reader.GetString("cedulaUsuario"),
+                            NombreUsuario = reader.GetString("nombreUsuario"),
+                            Apellido = reader.GetString("apellidoUsuario"),
+                            Telefono = reader.GetString("telefono"),
+                            Direccion = reader.GetString("direccion"),
+                            Email = reader.GetString("email"),
+                            IdRol = reader.GetInt32("fk_IdRol"),
+                            NombreRol = reader.GetString("nombreRol"),
+                            EstadoSuspension = reader.GetBoolean("estadoSuspension")
+                        };
+                    }
                 }
 
                 return null;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error al obtener el usuario: " + ex.Message);
-                return null;
+                // Manejo de errores: log y rethrow
+                throw new Exception("Error al obtener el usuario por ID.", ex);
             }
             finally
             {

@@ -1,22 +1,18 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
 using WebApiUdApp.Utilities;
 using WebApiUdApp.Repositories;
 using WebApiUdApp.Dtos;
-using DinkToPdf.Contracts;
 
 namespace WebApiUdApp.Services
 {
     public class ReporteService
     {
-        private readonly IConverter _pdfConverter;
         private readonly SmtpCorreos _correo;
         private readonly ReporteRepositorio _reportesRepositorio;
         private readonly GenerarHtmlString _generarHtmlString;
 
-        public ReporteService(GenerarHtmlString generarHtmlString, IConverter pdfConverter, SmtpCorreos correo, ReporteRepositorio reportesRepositorio)
+        public ReporteService(GenerarHtmlString generarHtmlString, SmtpCorreos correo, ReporteRepositorio reportesRepositorio)
         {
-            _pdfConverter = pdfConverter;
             _correo = correo;
             _reportesRepositorio = reportesRepositorio;
             _generarHtmlString = generarHtmlString;
@@ -43,7 +39,7 @@ namespace WebApiUdApp.Services
                 string htmlContent = _generarHtmlString.GenerateHtmlReporteReportadas(reportesDto);
 
                 // Convertir HTML a PDF usando GenerarPDF
-                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                GenerarPDF _generarPDF = new GenerarPDF();
                 byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
 
                 // Enviar el correo con el PDF adjunto
@@ -74,7 +70,7 @@ namespace WebApiUdApp.Services
                 string htmlContent = _generarHtmlString.GenerateHtmlReporteLikeadas(publicacionesDto);
 
                 // Convertir HTML a PDF usando GenerarPDF
-                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                GenerarPDF _generarPDF = new GenerarPDF();
                 byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
 
                 // Enviar el correo con el PDF adjunto
@@ -107,7 +103,7 @@ namespace WebApiUdApp.Services
                 string htmlContent = _generarHtmlString.GenerateHtmlReporteUsuariosRegistradosConImagen(reporteUsuariosDto);
 
                 // Convertir HTML a PDF usando GenerarPDF
-                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                GenerarPDF _generarPDF = new GenerarPDF();
                 byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
 
                 // Enviar el correo con el PDF adjunto
@@ -128,7 +124,7 @@ namespace WebApiUdApp.Services
             string htmlContent = _generarHtmlString.GenerateHtmlReporteReportadas(reportesDto);
 
             // Convertir HTML a PDF
-            GenerarPDF generadorPDF = new GenerarPDF(_pdfConverter);
+            GenerarPDF generadorPDF = new GenerarPDF();
             return generadorPDF.GeneratePdfFromHtml(htmlContent);
         }
 
@@ -142,32 +138,35 @@ namespace WebApiUdApp.Services
             string htmlContent = _generarHtmlString.GenerateHtmlReporteLikeadas(publicacionesDto);
 
             // Convertir HTML a PDF
-            GenerarPDF generadorPDF = new GenerarPDF(_pdfConverter);
+            GenerarPDF generadorPDF = new GenerarPDF();
             return generadorPDF.GeneratePdfFromHtml(htmlContent);
         }
-        public byte[] GenerarReporteUsuariosPdf(string token)
+        public byte[] GenerarReporteUsuariosPdf()
         {
             try
             {
-                ReporteRepositorio reporteRepositorio = new ReporteRepositorio();
-                int idUsuario = ObtenerIdUsuarioDesdeToken(token);
-
-                // Obtener los datos de reportes
+                // Obtener los datos para el reporte
                 List<ReporteUsuariosDto> reporteUsuariosDto = _reportesRepositorio.ObtenerUsuariosRegistradosUltimos30Dias();
 
-                // Generar el HTML para el PDF
+                // Generar el HTML del reporte
                 string htmlContent = _generarHtmlString.GenerateHtmlReporteUsuariosRegistradosConImagen(reporteUsuariosDto);
 
-                // Convertir HTML a PDF usando GenerarPDF
-                GenerarPDF _generarPDF = new GenerarPDF(_pdfConverter);
+                // Convertir HTML a PDF
+                GenerarPDF _generarPDF = new GenerarPDF();
                 byte[] pdfBytes = _generarPDF.GeneratePdfFromHtml(htmlContent);
+
+                if (pdfBytes == null)
+                {
+                    throw new Exception("La conversión de HTML a PDF retornó un valor nulo.");
+                }
 
                 return pdfBytes;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error al generar el PDF: " + ex.Message);
-                return null;
+                // Lanzar una excepción específica para ser capturada en el controlador
+                throw new Exception("Error al generar el PDF de usuarios: " + ex.Message, ex);
             }
         }
         private int ObtenerIdUsuarioDesdeToken(string token)

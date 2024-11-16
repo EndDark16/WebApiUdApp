@@ -16,7 +16,7 @@ namespace WebApiUdApp.Utilities
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential("udappx@gmail.com", "mnsrsyclbpiodmaj"),
                     EnableSsl = true,
-                    Timeout = 20000 // Opcional: Aumenta el tiempo de espera (20 segundos)
+                    Timeout = 20000 //tiempo de espera
                 })
                 using (var mensaje = new MailMessage
                 {
@@ -25,17 +25,12 @@ namespace WebApiUdApp.Utilities
                     Body = bodyHtml,
                     IsBodyHtml = true
                 })
-                {
-                    // Agregar el destinatario
-                    mensaje.To.Add(destinatario);
-
-                    // Enviar el correo
+                {                    mensaje.To.Add(destinatario); // Agregar el destinatario
                     await clienteSmtp.SendMailAsync(mensaje);
                 }
             }
             catch (Exception ex)
             {
-                // Capturar errores en el envío de correo
                 Console.WriteLine("Error al enviar correo: " + ex.Message);
             }
         }
